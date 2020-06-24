@@ -1,0 +1,64 @@
+/* Sidebar ---------------------- */
+
+.breadcrumbs {
+  color: $color-text-lightest;
+  display: flex;
+  flex-wrap: wrap;
+  list-style: none;
+  padding-left: 0;
+
+  li {
+    flex: 0 1 auto;
+    padding: 0;
+
+    > * {
+      color: inherit;
+      display: inline-block;
+      padding: $base-padding/2 $base-padding/2 $base-padding/2 0;
+
+      &::after {
+        background: url("data:image/svg+xml,%3Csvg width='12' height='12' xmlns='http://www.w3.org/2000/svg' fill-rule='evenodd' clip-rule='evenodd' viewBox='0 0 24 24'%3E%3Cpath d='M4 .755l14.374 11.245-14.374 11.219.619.781 15.381-12-15.391-12-.609.755z'/%3E%3C/svg%3E")
+          no-repeat 50% 50%;
+        background-size: 0.75em 0.75em;
+        bottom: -1px;
+        content: '';
+        display: inline-block;
+        height: 0.75em;
+        margin-left: $base-padding/2;
+        opacity: 0.5;
+        position: relative;
+        width: 0.75em;
+      }
+    }
+  }
+
+  a {
+    text-decoration: none;
+
+    &:hover,
+    &:focus {
+      color: $color-text;
+      text-decoration: underline;
+    }
+  }
+
+  span {
+    opacity: 0.8;
+  }
+
+  .icon {
+    height: 1.4em;
+    width: 1.4em;
+    margin: 0;
+    bottom: -0.3em;
+  }
+
+  // Hide arrow on last item
+  :last-child {
+    * {
+      &::after {
+        display: none;
+      }
+    }
+  }
+}

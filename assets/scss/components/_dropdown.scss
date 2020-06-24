@@ -1,0 +1,95 @@
+/* Dropdown ---------------------- */
+
+/* Required variables:
+  $base-padding: 0.75rem;
+  $border-radius: 4px;
+  $box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.2);
+*/
+
+.dropdown {
+  position: relative;
+
+  &[data-position='left'] {
+    .dropdown-content {
+      left: auto;
+      right: 0;
+    }
+  }
+
+  &[data-position='center'] {
+    .dropdown-content {
+      left: 50%;
+      transform: scale(0.9, 0.5) translate3d(-50%, -6px, 0);
+      transform-origin: top left;
+    }
+
+    &.show {
+      .dropdown-content {
+        transform: scale(1) translate3d(-50%, 0, 0);
+      }
+    }
+  }
+
+  &[data-position='top'] {
+    .dropdown-content {
+      bottom: 100%;
+      transform: scale(0.9, 0.5) translate3d(0, 6px, 0);
+      transform-origin: bottom center;
+      top: auto;
+    }
+  }
+
+  &.show {
+    .dropdown-content {
+      opacity: 1;
+      transform: scale(1) translate3d(0, 0, 0);
+      visibility: visible;
+    }
+  }
+}
+
+.caret {
+  &::after {
+    background: url("data:image/svg+xml,%3Csvg width='9' height='5' xmlns='http://www.w3.org/2000/svg'%3E%3Cpolyline fill='none' stroke='rgb(0,0,0)' points='.5 .5 4.5 4.5 8.5 .5'%3E%3C/polyline%3E%3C/svg%3E")
+      no-repeat 50% 50%;
+    bottom: 2px;
+    content: '';
+    display: inline-block;
+    height: 5px;
+    margin-left: $base-padding/4;
+    opacity: 0.4;
+    position: relative;
+    width: 9px;
+  }
+
+  &:hover:not([disabled]),
+  &:focus:not([disabled]) {
+    &::after {
+      opacity: 0.8;
+    }
+  }
+}
+
+.dropdown-content {
+  backface-visibility: hidden;
+  background-color: #fff;
+  border-radius: $border-radius;
+  box-shadow: $box-shadow;
+  left: 0;
+  min-width: 12em;
+  opacity: 0.001;
+  padding: $base-padding;
+  position: absolute;
+  top: 100%;
+  transition: all 0.2s $base-transition;
+  transform-origin: top center;
+  transform: scale(0.9, 0.5) translate3d(0, -6px, 0);
+  transform-origin: top center;
+  will-change: transform;
+  visibility: hidden;
+  z-index: 8;
+
+  &.link-list {
+    padding: 0;
+  }
+}

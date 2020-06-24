@@ -1,0 +1,80 @@
+/* Comment ---------------------- */
+
+/* Required variables:
+  $base-padding: 0.75rem;
+  $font-size-300: 0.875rem;
+
+  $ts-green-500: #78bc3a;
+  $color-text-lightest: #767676;
+  $grey-0: #f7f7f7;
+*/
+
+.comment {
+  display: flex;
+  margin-bottom: $base-padding * 2;
+  overflow-x: hidden;
+  
+  &:last-child {
+    margin-bottom: 0;
+  }
+
+  > img {
+    flex: 0 0 auto;
+    border-radius: 50%;
+    height: 2rem;  
+    margin-right: $base-padding;
+    width: 2rem;
+  }
+
+  > div {
+    overflow-x: hidden;
+  }
+
+  header {
+    font-size: $font-size-300;
+    flex: 1 0;
+    margin-bottom: $base-padding/2;
+    overflow-x: auto;
+    padding-right: $base-padding;
+    white-space: nowrap;
+    -webkit-overflow-scrolling: touch;
+
+    button {
+      color: $color-text-lightest;
+      
+      &:hover, &:focus {
+        color: $color-link;
+        text-decoration: underline;
+      }
+    }
+  }
+
+  .author-employee {
+    &::before {
+      color: $vivid-amber-500;
+      content: '\2605';
+      display: inline-block;
+      margin-right: $base-padding/3;
+    }
+  }
+
+  time {
+    color: $color-text-lightest;
+  }
+  
+  > div {
+    p:first-of-type {
+      margin-top: 0;
+    }
+    
+    p:last-of-type {
+      margin-bottom: 0;
+    }
+  }
+  
+  + ul {
+    flex: 1 1 100%;
+    margin-bottom: $base-padding;
+    margin-left: 2.75rem; // Width of avatar plus padding
+  }
+}

@@ -1,0 +1,57 @@
+/* Social button ---------------------- */
+
+/* Required variables:
+  $color-facebook: #3b5998;
+  $color-twitter: #55acee;
+  $color-instagram: #8a3ab9;
+  $color-youtube: #ff0000;
+  $color-pinterest: #c8232c;
+*/
+
+/* Required components:
+  _button.scss
+*/
+
+.button {
+  &.button-facebook,
+  &.button-twitter,
+  &.button-instagram,
+  &.button-youtube,
+  &.button-pinterest {
+    color: #fff;
+  }
+
+  &.button-facebook {
+    background-color: $color-facebook;
+    border-color: darken($color-facebook, 20%);
+    box-shadow: 0 1px 0 darken($color-facebook, 20%);
+  }
+
+  &.button-twitter {
+    background-color: $color-twitter;
+    border-color: darken($color-twitter, 20%);
+    box-shadow: 0 1px 0 darken($color-twitter, 20%);
+  }
+
+  &.button-instagram {
+    background-color: $color-instagram;
+    border-color: darken($color-instagram, 20%);
+    box-shadow: 0 1px 0 darken($color-instagram, 20%);
+  }
+
+  &.button-youtube {
+    background-color: $color-youtube;
+    border-color: darken($color-youtube, 20%);
+    box-shadow: 0 1px 0 darken($color-youtube, 20%);
+  }
+
+  &.button-pinterest {
+    background-color: $color-pinterest;
+    border-color: darken($color-pinterest, 20%);
+    box-shadow: 0 1px 0 darken($color-pinterest, 20%);
+  }
+
+  &:active {
+    box-shadow: none;
+  }
+}

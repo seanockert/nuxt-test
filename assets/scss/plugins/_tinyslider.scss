@@ -1,0 +1,102 @@
+// Version: 2.9.1
+.tns-outer {
+  padding: 0;
+  position: relative;
+
+  [hidden] {
+    display: none !important;
+  }
+
+  [aria-controls],
+  [data-action] {
+    cursor: pointer;
+  }
+}
+
+.tns-slider {
+  transition: all 0s;
+}
+
+.tns-horizontal {
+  &.tns-subpixel {
+    white-space: nowrap;
+
+    > .tns-item {
+      display: inline-block;
+      vertical-align: top;
+      white-space: normal;
+    }
+  }
+
+  &.tns-no-subpixel {
+    &:after {
+      content: '';
+      display: table;
+      clear: both;
+    }
+    > .tns-item {
+      float: left;
+    }
+  }
+
+  &.tns-carousel {
+    &.tns-no-subpixel {
+      > .tns-item {
+        margin-right: -100%;
+      }
+    }
+  }
+}
+
+.tns-no-calc {
+  position: relative;
+  left: 0;
+}
+
+.tns-autowidth {
+  display: inline-block;
+}
+
+.tns-ovh {
+  overflow: hidden;
+}
+
+.tns-visually-hidden {
+  position: absolute;
+  left: -10000em;
+}
+
+.tns-transparent {
+  opacity: 0;
+  visibility: hidden;
+}
+
+// *** Fix a viewport issue in initialization
+.tns-vpfix {
+  white-space: nowrap;
+  > div,
+  > li {
+    display: inline-block;
+  }
+}
+
+.tns-controls {
+  > button {
+    height: 100%;
+    position: absolute;
+    text-indent: -9999px;
+    top: 0;
+    width: 3.75em;
+    z-index: 99;
+  }
+
+  [data-controls='prev'] {
+    background: linear-gradient(90deg, #fff, hsla(0, 0%, 100%, 0));
+    left: 0;
+  }
+
+  [data-controls='next'] {
+    background: linear-gradient(90deg, hsla(0, 0%, 100%, 0), #fff);
+    right: 0;
+  }
+}

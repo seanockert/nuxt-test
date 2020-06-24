@@ -1,0 +1,586 @@
+/* Card ---------------------- */
+
+/* Required variables:
+  $base-padding: 0.75rem;
+  $border-radius: 4px;
+  $font-size-300: 0.875rem;
+  $font-size-500: 1rem;
+  $ts-green-500: #78bc3a;
+  $brilliant-amaranth-500: #ef3e4c;
+  $moderate-purple-500: #8a5fa8;
+  $color-text: #333;
+  $color-text-lightest: #767676;
+  $grey-0: #f7f7f7;
+*/
+
+/* Example:
+<div class="card card-resource">
+  <figure class="card-img">
+    <img src="..." alt="" height="300" width="600">
+  </figure>
+  <div class="card-content">
+    <h4>Category</h4>
+    <h3><a href="..." title="...">Card title</a></h3>
+    <p>Card description</p>
+  </div>
+  <footer>
+    <span class="card-label">Label</span>
+  </footer>
+</div>
+*/
+
+.card,
+.card-container {
+  border-radius: $border-radius;
+
+  * {
+    padding: 0;
+    margin: 0;
+  }
+
+  > * {
+    padding: $base-padding 0 0 0;
+  }
+
+  > :last-child:not(.card-img) {
+    padding-bottom: $base-padding;
+  }
+}
+
+.card {
+  transition: transform 0.2s ease-out;
+  margin-bottom: $base-padding;
+
+  &:active {
+    //transform: scale(0.95);
+  }
+
+  h3,
+  p {
+    margin-bottom: $base-padding/2;
+  }
+
+  h3,
+  h4 {
+    line-height: 1.2;
+  }
+
+  h4 {
+    color: #767676;
+    font-size: 0.8rem;
+    letter-spacing: 0.03em;
+    margin-bottom: $base-padding/2;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    text-transform: uppercase;
+    white-space: nowrap;
+  }
+
+  a {
+    color: inherit;
+    text-decoration: none;
+
+    &:active {
+      background-color: transparent;
+    }
+  }
+
+  button {
+    border: none;
+    cursor: pointer;
+    font-size: inherit;
+    transition: all 0.2s ease-out;
+    -webkit-appearance: none;
+
+    svg {
+      height: 1.1rem;
+      width: 1.1rem;
+      fill: #fff;
+      pointer-events: none;
+    }
+
+    &:hover {
+      background-color: rgba(0, 0, 0, 0.8);
+      transform: scale(1.1);
+    }
+
+    &:active {
+      background-color: rgba(0, 0, 0, 0.3);
+      transform: scale(1);
+    }
+  }
+
+  &.shadow {
+    display: block;
+
+    > * {
+      padding: $base-padding $base-padding 0 $base-padding;
+    }
+
+    .card-img {
+      border-radius: $border-radius $border-radius 0 0;
+      padding: 0;
+    }
+  }
+}
+
+/* Card modifiers */
+.card-zoom {
+  .card-img {
+    > img {
+      transition: transform 0.6s ease-out;
+    }
+  }
+
+  &:hover,
+  &:focus {
+    .card-img {
+      > img {
+        transform: scale(1.05); // Slow zoom in image
+      }
+    }
+  }
+
+  &:active {
+    transform: none;
+  }
+}
+
+.card-person,
+.card-request {
+  .card-content {
+    align-items: top;
+    display: flex;
+    flex-wrap: wrap;
+
+    > * {
+      flex: 1 1 auto;
+    }
+
+    img {
+      flex: 0 0 auto;
+      height: 3.5rem;
+      margin-bottom: $base-padding/2;
+      width: 3.5rem;
+    }
+  }
+}
+
+.card-person {
+  .card-content {
+    img {
+      border-radius: 50%;
+      margin-right: $base-padding;
+    }
+  }
+}
+
+.card.card-inline {
+  align-items: center;
+  display: flex;
+
+  &.shadow .card-img {
+    border-radius: $border-radius 0 0 $border-radius;
+    flex: 0 0 auto;
+    padding: 0;
+  }
+
+  .card-content {
+    img {
+      margin-right: $base-padding;
+    }
+  }
+}
+
+.card.card-form {
+  background-color: $vivid-amber-100;
+  cursor: default !important; // Card is not clickable
+
+  .card-content {
+    padding: $base-padding;
+  }
+
+  form {
+    margin-top: $base-padding/2;
+  }
+
+  input,
+  button {
+    padding: $base-padding/1.5 $base-padding/2;
+  }
+
+  input {
+    border-color: $vivid-amber-200;
+    margin-bottom: $base-padding/2;
+  }
+
+  button {
+    display: block;
+    width: 100%;
+
+    &:hover,
+    &:focus {
+      transform: none;
+    }
+  }
+}
+
+.card-request {
+  border-left: 3px solid $brilliant-amaranth-500;
+  border-radius: 0;
+  padding-left: $base-padding;
+
+  .card-content {
+    .card-request-likes {
+      border: 2px solid $grey-100;
+      border-radius: $border-radius;
+      flex: 1 1 0px;
+      height: 3.4em;
+      line-height: 1.2;
+      margin-left: auto;
+      max-width: 5rem;
+      padding: $base-padding/2;
+      text-align: center;
+
+      div {
+        color: $color-text;
+        font-size: $font-size-200;
+        margin-top: $base-padding/4;
+        white-space: nowrap;
+      }
+
+      &:hover,
+      &:focus {
+        background-color: #fff;
+        border-color: $grey-200;
+      }
+    }
+  }
+}
+
+/* Card carousel @todo remove if unused */
+.card-carousel {
+  align-items: center;
+  display: flex;
+  flex-wrap: nowrap;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  scroll-snap-type: x mandatory;
+  -ms-overflow-style: -ms-autohiding-scrollbar;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+
+  > img {
+    flex: 0 0 100%;
+    scroll-snap-align: center;
+    scroll-padding: 0;
+  }
+}
+
+.card-carousel-dots {
+  background-color: rgba(0, 0, 0, 0.2);
+  border-radius: $border-radius;
+  bottom: $base-padding/2;
+  display: flex;
+  justify-content: center;
+  left: 50%;
+  padding: $base-padding/4;
+  position: absolute;
+  transform: translateX(-50%);
+  width: auto;
+
+  > * {
+    background-color: #fff;
+    border-radius: 50%;
+    flex: 0 0 auto;
+    opacity: 0.6;
+    padding: 3px;
+    position: static; // Reset button position
+    margin: 0 2px;
+
+    &.active {
+      opacity: 1;
+    }
+  }
+}
+
+/* Shared internals */
+.card-header {
+  align-items: center;
+  display: flex;
+  line-height: 1.2;
+  padding: 0;
+  padding-bottom: $base-padding;
+
+  > * {
+    flex: 1 1 auto;
+  }
+
+  img,
+  svg {
+    border: 2px solid #fff;
+    border-radius: 50%;
+    flex: 0 0 auto;
+    height: 2rem;
+    margin-right: $base-padding;
+    width: 2rem;
+    z-index: 3;
+  }
+
+  img + img {
+    margin-left: -$base-padding * 1.8;
+    z-index: 2;
+  }
+}
+
+.card-img {
+  background-color: $grey-0;
+  border-radius: inherit;
+  margin: 0;
+  overflow: hidden;
+  padding: 0;
+  //padding-top: calc(628 / 1200 * 100%); // Maintain the image size even if it doesn't load
+  position: relative;
+
+  > img {
+    display: block;
+    line-height: 0;
+    height: inherit;
+    //position: absolute;
+    top: 0;
+    width: 100%;
+  }
+
+  span {
+    position: absolute;
+    margin: 0;
+    top: 0;
+    z-index: 3;
+
+    &.right {
+      right: 0;
+    }
+  }
+
+  .label {
+    margin: $base-padding/2;
+  }
+
+  button {
+    background-color: rgba(0, 0, 0, 0.25);
+    border-radius: 50%;
+    color: #fff;
+    line-height: 0;
+    padding: $base-padding/2;
+    margin: $base-padding/2;
+    margin-left: 0;
+  }
+}
+
+.card-content {
+  .card-meta {
+    margin-bottom: $base-padding;
+  }
+
+  // Highlight link in description
+  p {
+    font-size: $font-size-300;
+
+    a {
+      text-decoration: underline;
+    }
+  }
+
+  :last-child {
+    margin-bottom: 0;
+  }
+}
+
+.card-button {
+  background: #ddd;
+  border-radius: 0 0 $border-radius $border-radius;
+  color: #333;
+  display: block;
+  margin-top: $base-padding;
+  text-align: center;
+  width: 100%;
+}
+
+.card-comments {
+  > * {
+    align-items: center;
+    display: flex;
+    padding: $base-padding 0;
+
+    > * {
+      flex: 1 1 auto;
+      max-width: 100%;
+    }
+
+    img {
+      border-radius: 50%;
+      border: 2px solid #fff;
+      flex: 0 0 auto;
+      height: 2rem;
+      margin-right: $base-padding;
+      width: 2rem;
+    }
+
+    textarea {
+      background-color: $grey-0;
+      border-radius: $border-radius;
+      border: none;
+      display: block;
+      font-size: inherit;
+      height: 2.2rem;
+      max-width: 100%;
+      padding: $base-padding/2;
+      width: 100%;
+    }
+  }
+
+  > :last-child {
+    padding-bottom: 0;
+  }
+}
+
+.card-meta {
+  display: block;
+  font-size: $font-size-300;
+  line-height: 1.3;
+  opacity: 0.8;
+
+  em {
+    font-style: normal;
+    font-size: 0.875em;
+    letter-spacing: 0.03em;
+    text-transform: uppercase;
+    white-space: nowrap;
+  }
+}
+
+/* Multiple cards inside a container */
+.card-container {
+  position: relative;
+  width: 100%;
+
+  .card-header {
+    padding-bottom: 0;
+
+    h3 {
+      display: inline-block;
+      font-size: inherit;
+    }
+  }
+
+  ul {
+    align-items: top;
+    display: flex;
+    flex-wrap: nowrap;
+    list-style: none;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scroll-snap-type: x mandatory;
+    -ms-overflow-style: -ms-autohiding-scrollbar;
+
+    > li {
+      flex: 1 1 39%;
+      min-height: 100px;
+      max-width: 200px;
+      min-width: 140px;
+      padding: 0 $base-padding/4;
+      scroll-snap-align: center;
+      scroll-padding: 0 $base-padding/4;
+
+      > .card {
+        width: 100%;
+
+        h3 {
+          font-size: $font-size-500;
+        }
+      }
+    }
+  }
+
+  .card-content {
+    padding-bottom: 0;
+  }
+}
+
+/* Theming */
+.card.card-resource {
+  h4 {
+    color: $sea-green-500;
+  }
+}
+
+.card.card-plan {
+  h4 {
+    color: $strong-fuchsia-500;
+  }
+}
+
+.card.card-blog {
+  h4 {
+    color: $moderate-purple-500;
+  }
+}
+
+.card.card-request {
+  h4 {
+    color: $brilliant-amaranth-500;
+  }
+
+  .card-content {
+    .card-request-likes {
+      &.active {
+        border-color: transparent;
+      }
+
+      svg {
+        fill: $brilliant-amaranth-500;
+      }
+    }
+  }
+}
+
+.card.card-widget {
+  h4 {
+    color: $cobalt-blue-500;
+  }
+}
+
+/* Focus styles */
+.card:focus {
+  outline-width: 2px;
+  outline-style: solid;
+  outline-color: Highlight;
+}
+
+@media (-webkit-min-device-pixel-ratio: 0) {
+  .card:focus {
+    outline-color: -webkit-focus-ring-color;
+    outline-style: auto;
+  }
+}
+
+/* From https://codepen.io/zachhanding/pen/MKyVPq */
+.line-clamp {
+  display: block;
+  display: -webkit-box;
+  height: calc(1em * 1.2 * 2);
+  line-height: 1.2;
+  overflow: hidden;
+  padding: 0 !important;
+  position: relative;
+  text-overflow: ellipsis;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+}
+
+p.line-clamp {
+  height: calc(1em * 1.5 * 2);
+  line-height: 1.5;
+}

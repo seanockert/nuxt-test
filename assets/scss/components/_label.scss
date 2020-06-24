@@ -1,0 +1,85 @@
+/* Label ---------------------- */
+
+/* Required variables:
+  $base-padding: 0.75rem;
+  $border-radius: 4px;
+  $ts-green-100: #e4f2d8;
+  $ts-green-900: #163305;
+  $vivid-cyan-100: #d7f0f7;
+  $vivid-cyan-900: #06354d;
+  $brilliant-amaranth-100: #f9b2b7;
+  $brilliant-amaranth-900: #660908;
+  $vivid-amber-100: #fceed2;
+  $vivid-amber-900: #664904;
+*/
+
+.label {
+  background-color: $grey-0;
+  border-radius: $border-radius;
+  display: inline-block;
+  font-size: $font-size-200;
+  font-weight: bold;
+  line-height: 1;
+  margin-right: $base-padding/2;
+  max-width: 12rem;
+  overflow: hidden;
+  padding: $base-padding/4 $base-padding/2;
+  position: relative;
+  text-transform: uppercase;
+  text-overflow: ellipsis;
+  top: -1px;
+  white-space: nowrap;
+
+  &.label-primary {
+    background-color: $ts-green-100;
+    color: $ts-green-900;
+  }
+
+  &.label-secondary {
+    background-color: $vivid-cyan-100;
+    color: $vivid-cyan-900;
+  }
+
+  &.label-warning {
+    background-color: $brilliant-amaranth-100;
+    color: $brilliant-amaranth-900;
+  }
+
+  &.label-notice {
+    background-color: $vivid-amber-100;
+    color: $vivid-amber-900;
+  }
+
+  // File formats
+  &.format-docx {
+    background-color: #e9f2ff;
+    color: #2b589b;
+  }
+
+  &.format-pdf {
+    background-color: #fff1f1;
+    color: #ff0000;
+  }
+
+  &.format-pptx {
+    background-color: #ffede9;
+    color: #d14424;
+  }
+
+  &.format-xlsx {
+    background-color: #f1fff1;
+    color: #008000;
+  }
+}
+
+sup.label {
+  background-color: $brilliant-amaranth-500;
+  border-radius: 1em;
+  color: #fff;
+  font-size: $font-size-300;
+  font-weight: bold;
+  margin: 0;
+  transform: translate3d(-1em, -1em, 0);
+  padding: 3px 6px;
+  text-decoration: none;
+}

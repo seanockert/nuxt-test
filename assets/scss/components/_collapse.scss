@@ -1,0 +1,99 @@
+/* Collapse ---------------------- */
+
+/* Required variables:
+  $base-padding: 0.75rem;
+  $color-link: #4876bb;
+  $typeface-base: 'Lato', sans-serif;
+*/
+
+.collapse {
+  h3 {
+    width: 100%;
+    font-weight: normal;
+    font-family: $typeface-base;
+    margin: 0;
+  }
+
+  button {
+    all: inherit;
+    cursor: pointer;
+    display: flex;
+    padding: 0 0 $base-padding 0;
+    width: 100%;
+    -webkit-appearance: none;
+
+    &:hover,
+    &:focus {
+      opacity: 1;
+    }
+  }
+
+  > div {
+    > p:first-child {
+      margin-top: 0;
+    }
+  }
+
+  [aria-expanded='true'] {
+    font-weight: bold;
+
+    &::after {
+      transform: rotate(180deg);
+    }
+  }
+
+  [aria-expanded] path {
+    fill: currentColor;
+  }
+}
+
+// Add an icon after toggle buttons
+.collapse-toggle {
+  position: relative;
+
+  button::after {
+    content: url("data:image/svg+xml,%3Csvg width='9' height='5' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 9 5'%3E%3Cpolyline fill='none' stroke='rgb(100,100,100)' points='.5 .5 4.5 4.5 8.5 .5'%3E%3C/polyline%3E%3C/svg%3E");
+    line-height: 1;
+    position: absolute;
+    right: 0;
+  }
+}
+
+.collapse-text {
+  button {
+    padding: 0;
+    position: relative;
+    text-align: left;
+
+    &::after {
+      background: linear-gradient(
+        to right,
+        rgba(255, 255, 255, 0.01),
+        #fff 50%
+      );
+      bottom: -$base-padding/4;
+      content: 'more';
+      color: $color-link;
+      display: block;
+      padding: $base-padding/4 0 $base-padding/4 $base-padding * 3;
+      position: absolute;
+      right: 0;
+      -webkit-text-fill-color: $color-link;
+    }
+
+    &:hover,
+    &:focus {
+      &::after {
+        text-decoration: underline;
+      }
+    }
+  }
+
+  [aria-expanded='true'] {
+    display: none;
+  }
+
+  > div {
+    margin: 0;
+  }
+}

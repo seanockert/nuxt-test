@@ -1,0 +1,105 @@
+/*!
+Site Name:      Nuxt test
+Site URI:       
+Description:    
+Author:         Sean Ockert @seanockert
+Author URI:     http://seanockert.com
+Version:        1.0
+*/
+
+/* Import reset and fonts ---------------------- */
+
+@import 'reset';
+@import 'variables';
+@import 'mixins';
+
+/* Grid ---------------------- */
+
+@import 'grid/foundation-grid'; // 20KB
+
+/* Helper/utility classes ---------------------- */
+
+@import 'helpers/color';
+@import 'helpers/general';
+@import 'helpers/shadow';
+@import 'helpers/skeleton';
+@import 'helpers/typography';
+
+/* Global styles  ---------------------- */
+
+body {
+	color: $color-text;
+	font-size: $font-size-500; // 16px
+}
+
+/* Main components  ---------------------- */
+
+@import 'components/button';
+@import 'components/card';
+@import 'components/dropdown';
+@import 'components/flex-video';
+@import 'components/form';
+@import 'components/icon';
+@import 'components/label';
+@import 'components/nav';
+@import 'components/search';
+@import 'components/section';
+@import 'components/tooltip';
+
+/*@import 'components/breadcrumb';
+
+@import 'components/button-social';
+@import 'components/callout';
+
+@import 'components/carousel';
+@import 'components/collapse';
+@import 'components/comment';
+
+@import 'components/filter';
+
+
+
+@import 'components/illustration';
+
+
+@import 'components/nav-vertical';
+@import 'components/pricing-plan';
+@import 'components/scroll-container';
+
+
+@import 'components/sidebar';
+@import 'components/tab';
+@import 'components/table';
+@import 'components/toast';
+
+*/
+
+/* Nav ---------------------- */
+
+.page-enter-active,
+.page-leave-active {
+	transition: opacity 0.15s;
+}
+
+.page-enter,
+.page-leave-to {
+	opacity: 0;
+}
+
+.slide-left-enter,
+.slide-right-leave-active {
+	opacity: 0;
+	transform: translate(30px, 0);
+}
+.slide-left-leave-active,
+.slide-right-enter {
+	opacity: 0;
+	transform: translate(-30px, 0);
+}
+
+/* Plugin styles ---------------------- */
+
+//@import 'plugins/aos';
+//@import 'components/modal';
+
+/* Turn off all transitions if reduced motion enabled ---------------------- */

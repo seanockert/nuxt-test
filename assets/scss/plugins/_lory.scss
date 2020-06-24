@@ -1,0 +1,69 @@
+/* Lory carousel - https://loryjs.github.io/lory/ */
+
+.lory-carousel {
+	position: relative;
+	max-width: 600px;
+}
+
+/*.frame {
+	position: relative;
+
+	overflow: hidden;
+	white-space: nowrap;
+}
+
+.slides {
+	display: inline-block;
+	display: flex;
+	background-color: green;
+
+	> .active {
+		transform: scale(1.1);
+	}
+}
+
+li {
+	position: relative;
+	flex: 1 1 auto;
+	margin: 12px;
+}
+
+/* */
+.lory-frame {
+	position: relative;
+	overflow: hidden;
+	white-space: nowrap;
+}
+
+.lory-slides {
+	display: inline-block;
+
+	li {
+		position: relative;
+		display: inline-block;
+		padding: 0.75em 0.375em;
+	}
+
+	.button {
+		margin: 0;
+	}
+}
+
+.lory-prev,
+.lory-next {
+	cursor: pointer;
+	height: 100%;
+	position: absolute;
+	top: 0;
+	width: 3.75em;
+}
+
+.lory-next {
+	background: linear-gradient(90deg, hsla(0, 0%, 100%, 0), #fff);
+	right: 0;
+}
+
+.lory-prev {
+	background: linear-gradient(90deg, #fff, hsla(0, 0%, 100%, 0));
+	left: 0;
+}

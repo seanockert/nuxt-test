@@ -1,0 +1,183 @@
+/* Callout and notice ---------------------- */
+
+/* Required variables:
+  $base-padding: 0.75rem;
+  $border-radius: 4px;
+  $color-text: #333;
+  $color-text-lightest: #767676;
+  $grey-200: #d7d7d7;
+*/
+
+.callout {
+  align-items: center;
+  background-color: $grey-0;
+  border-radius: $border-radius;
+  color: $color-text;
+  display: flex;
+  flex-wrap: wrap;
+  padding: $base-padding;
+  margin: 0 0 $base-padding 0;
+  text-decoration: none;
+
+  > * {
+    flex: 1 1 auto;
+  }
+
+  img,
+  svg {
+    flex: 0 0 auto;
+    margin-left: 0;
+    margin-right: $base-padding;
+  }
+
+  .button {
+    flex: 1 1 0;
+    margin-left: $base-padding;
+  }
+
+  h3 {
+    font-size: $font-size-500;
+    margin: 0;
+  }
+
+  ul {
+    font-size: $font-size-300;
+    margin-top: $base-padding/2;
+
+    a {
+      color: inherit;
+
+      &:hover,
+      &:focus,
+      &:active {
+        color: $color-link;
+      }
+    }
+  }
+}
+
+.callout-notice {
+  background-color: $vivid-amber-100;
+  color: $vivid-amber-900;
+}
+
+.callout-error {
+  background-color: $brilliant-amaranth-100;
+  color: $brilliant-amaranth-900;
+}
+
+.callout-success {
+  background-color: $ts-green-100;
+  color: $ts-green-900;
+}
+
+.callout-info {
+  background-color: $vivid-cyan-100;
+  color: $vivid-cyan-900;
+}
+
+// For info banners above the header
+.callout-banner {
+  border-radius: 0;
+  margin: 0;
+  position: relative;
+  transition: all 0.2s ease-out;
+}
+
+// A thin left border instead of a background colour
+.callout-border {
+  background-color: transparent;
+  border-left: 3px solid $ts-green-200;
+  border-radius: 0;
+}
+
+// @todo style callout links
+a.callout {
+  display: block;
+  text-decoration: none;
+
+  // Wrap button below content on small screen
+  span:first-of-type {
+    display: block;
+  }
+
+  .button {
+    flex: 0 1 auto;
+    margin: 0;
+    margin-top: $base-padding;
+
+    &:hover,
+    &:focus,
+    &:active {
+      transform: none;
+
+      &::after {
+        display: none;
+      }
+    }
+  }
+
+  &:hover,
+  &:focus {
+    color: inherit;
+
+    .button-primary {
+      background-color: $ts-green-600;
+      border-color: $ts-green-700;
+    }
+  }
+}
+
+.callout-cta {
+  position: relative;
+
+  > svg {
+    display: none;
+  }
+}
+
+@media #{$medium-up} {
+  a.callout {
+    display: flex;
+
+    .button {
+      margin: 0 0 0 $base-padding;
+    }
+  }
+
+  .callout-cta {
+    margin: $base-padding * 2 0 $base-padding 24px;
+    margin-left: 24px;
+    padding-left: 46px;
+
+    // Character illustration
+    > svg {
+      display: block;
+      left: -40px;
+      height: auto;
+      position: absolute;
+      top: -60px;
+      width: 70px;
+    }
+  }
+}
+
+// Close/dismiss button using &times; symbol
+.dismiss {
+  background: none;
+  border: none;
+  color: inherit;
+  flex: 0 0 auto;
+  font-family: sans-serif;
+  font-size: 2em;
+  margin: -$base-padding;
+  margin-left: auto;
+  padding: 0 $base-padding;
+  transform: translateY(-0.1em);
+}
+
+// Apply class to banner after dismissed button clicked
+.dismissed {
+  opacity: 0;
+  transform: translate3d(0, -3px, 0);
+}

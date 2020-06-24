@@ -1,0 +1,62 @@
+// Generate Duration & Delay
+[data-aos] {
+	@for $i from 1 through 10 {
+		body[data-aos-duration='#{$i * 50}'] &,
+		&[data-aos][data-aos-duration='#{$i * 50}'] {
+			transition-duration: #{$i * 50}ms;
+		}
+
+		body[data-aos-delay='#{$i * 50}'] &,
+		&[data-aos][data-aos-delay='#{$i * 50}'] {
+			transition-delay: 0;
+
+			&.aos-animate {
+				transition-delay: #{$i * 50}ms;
+			}
+		}
+	}
+}
+
+$aos-easing: (
+	ease: cubic-bezier(0.25, 0.1, 0.25, 1),
+	ease-in-out-quart: cubic-bezier(0.455, 0.03, 0.515, 0.955)
+);
+
+// Easings implementations
+// Default timing function: 'ease'
+
+[data-aos] {
+	@each $key, $val in $aos-easing {
+		body[data-aos-easing='#{$key}'] &,
+		&[data-aos][data-aos-easing='#{$key}'] {
+			transition-timing-function: $val;
+		}
+	}
+}
+
+// Animations variables
+$aos-distance: 30px !default;
+
+/**
+ * Fade animations:
+ * fade
+ * fade-up, fade-down
+ */
+
+.js [data-aos^='fade'][data-aos^='fade'] {
+	opacity: 0;
+	transition-property: opacity, transform;
+
+	&.aos-animate {
+		opacity: 1;
+		transform: translate3d(0, 0, 0);
+	}
+}
+
+.js [data-aos='fade-up'] {
+	transform: translate3d(0, $aos-distance, 0);
+}
+
+.js [data-aos='fade-down'] {
+	transform: translate3d(0, -$aos-distance, 0);
+}

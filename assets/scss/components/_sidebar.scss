@@ -1,0 +1,62 @@
+/* Sidebar ---------------------- */
+
+.sidebar {
+  header {
+    padding: 0 $base-padding;
+
+    h3,
+    p {
+      margin: 0;
+    }
+  }
+
+  ul,
+  ol {
+    h4 {
+      font: normal $font-size-300/1.2 'museo-sans', sans-serif;
+      letter-spacing: 0.05em;
+      padding: 0 $base-padding;
+      text-transform: uppercase;
+    }
+
+    a {
+      text-decoration: none;
+
+      .icon,
+      .icon-small,
+      .counter {
+        margin-right: $base-padding/2;
+      }
+    }
+  }
+}
+.sidebar-highlight {
+  a {
+    span {
+      margin-bottom: -$base-padding/4;
+      position: relative;
+      padding-bottom: $base-padding/4;
+
+      &::before {
+        background-color: currentColor;
+        bottom: 0;
+        content: '';
+        left: 0;
+        height: 2px;
+        position: absolute;
+        right: 0;
+        transform-origin: bottom right;
+        transform: scaleX(0);
+        transition: transform 0.2s ease-out;
+      }
+    }
+    &.current {
+      font-weight: bold;
+
+      span::before {
+        transform-origin: bottom left;
+        transform: scaleX(1);
+      }
+    }
+  }
+}

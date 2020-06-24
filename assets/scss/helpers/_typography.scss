@@ -1,0 +1,284 @@
+﻿/* Load custom fonts ---------------------- */
+
+@import url('https://use.typekit.net/mzo4vqd.css');
+
+html {
+  font-family: $typeface-base;
+  font-size: 1em;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: $typeface-header;
+}
+
+/* Typography  ---------------------- */
+
+p,
+li {
+  line-height: 1.5;
+}
+
+p {
+  margin: 1rem 0;
+  word-break: break-word;
+  word-wrap: break-word;
+}
+
+/* Headers  ---------------------- */
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-weight: 700;
+  margin-top: $base-padding * 2;
+  margin-bottom: $base-padding;
+
+  &:before {
+    display: block;
+    width: 100%;
+    content: '';
+    clear: both;
+  }
+}
+
+h1 {
+  font-size: $font-size-900;
+  line-height: 1.15;
+  margin-top: $base-padding * 3;
+}
+
+h2 {
+  font-size: $font-size-700;
+  line-height: 1.3;
+  margin-top: $base-padding * 3;
+}
+
+h3 {
+  font-size: $font-size-600;
+  line-height: 1.4;
+}
+
+/* Handwriting font  ---------------------- */
+.handwriting {
+  font-family: verveine, sans-serif;
+}
+
+/* Quote  ---------------------- */
+
+blockquote {
+  font-size: $font-size-800;
+  color: $moderate-purple-500;
+  font-family: verveine, sans-serif;
+  line-height: 1.15;
+  margin: 1rem 0;
+}
+
+cite {
+  color: $color-text-lightest;
+  font-style: normal;
+  font-size: $font-size-300;
+
+  img {
+    border: 2px solid #fff;
+  }
+
+  img:last-child {
+    margin-left: -1em;
+  }
+}
+
+/* Links  ---------------------- */
+
+a {
+  color: $color-link;
+  text-decoration: none;
+
+  &:hover,
+  &:focus {
+    color: $color-link-hover;
+    text-decoration: underline;
+  }
+}
+
+/* Lists  ---------------------- */
+
+ul li,
+ol li {
+  line-height: 1.45;
+  padding-bottom: $base-padding/2;
+}
+
+menu,
+ol,
+ul {
+  padding: 0 0 0 24px;
+}
+
+/* Text styles  ---------------------- */
+
+// Larger first letter
+$drop-cap-lines: 3;
+.drop-cap {
+  &::first-letter {
+    float: left;
+    font-size: $font-size-500 * $drop-cap-lines * 1.5;
+    line-height: 1;
+    margin-top: -$base-padding/4;
+    padding: 0 $base-padding/4 0 0;
+    text-transform: uppercase;
+    color: $ts-green-500;
+  }
+}
+
+.text-big {
+  font-size: $font-size-600;
+  line-height: 1.4;
+}
+
+.text-center {
+  display: block;
+  text-align: center;
+}
+
+.text-right {
+  text-align: right;
+}
+
+// Example: <span class="highlight">this text is highlighted</span>
+.text-highlight {
+  background: linear-gradient(
+    to right,
+    rgba(255, 255, 255, 0) 0%,
+    #ff0 30%,
+    #ff0 70%,
+    rgba(255, 255, 255, 0) 100%
+  );
+  margin: 0 -$base-padding;
+  padding: 0 $base-padding;
+}
+
+.text-mute {
+  color: $color-text-lightest;
+
+  a {
+    color: inherit;
+    text-decoration: underline;
+
+    &:hover,
+    &:focus {
+      color: $color-link;
+    }
+  }
+}
+
+// Adds a green underline
+.text-underline {
+  background: linear-gradient(#e4f2d8, #e4f2d8) 0 0.9em repeat-x;
+  background-size: 8px 6px;
+  padding: 0 3px;
+  margin-left: -3px;
+  white-space: pre-wrap;
+}
+
+a.link-block {
+  color: inherit;
+  display: block;
+  margin-bottom: $base-padding;
+  padding-bottom: $base-padding;
+  text-decoration: none;
+
+  h2,
+  h3 {
+    margin-bottom: $base-padding/2;
+  }
+
+  span {
+    color: $color-link;
+    display: block;
+
+    &::after {
+      content: '\2192';
+      display: inline-block;
+      margin-left: $base-padding/4;
+    }
+  }
+
+  &:hover,
+  &:focus {
+    span {
+      text-decoration: underline;
+    }
+  }
+}
+
+.header-ribbon {
+  span {
+    background-color: $ts-green-500;
+    color: #fff;
+    display: inline-block;
+    padding: $base-padding/1.5 $base-padding * 3;
+    position: relative;
+    transform: rotate(-3deg);
+
+    &::before,
+    &::after {
+      background-color: #fff;
+      content: '';
+      display: block;
+      position: absolute;
+      height: 32px;
+      width: 32px;
+      top: 6px;
+      transform: rotate(45deg);
+    }
+
+    &::before {
+      left: -17px;
+    }
+
+    &::after {
+      right: -17px;
+    }
+  }
+}
+
+.handwritten-label {
+  color: $cobalt-blue-500;
+  display: inline-block;
+  font-family: verveine, sans-serif;
+  font-size: 21px;
+  letter-spacing: 0.03em;
+  transform: rotate(-3deg);
+
+  .icon {
+    height: 1.5em;
+    width: 1.5em;
+    margin: 0;
+  }
+}
+
+.intro {
+  font-size: $font-size-700;
+}
+
+// Set max width of paragraphs for readability - remove this if it causese issue
+.columns {
+  p,
+  blockquote {
+    max-width: 40rem;
+  }
+}
+
+@media #{$medium-up} {
+  h1 {
+    font-size: $font-size-1000;
+  }
+}

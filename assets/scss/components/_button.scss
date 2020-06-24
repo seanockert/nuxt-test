@@ -1,0 +1,256 @@
+/* Button ---------------------- */
+
+/* Required variables:
+  $base-padding: 0.75rem;
+  $border-radius: 4px;
+  $font-size-300: 0.875rem;
+  $font-size-700: 1.375rem;
+  $ts-green-700: #477820;
+  $ts-green-600: #5f9a2d;
+  $ts-green-500: #78bc3a;
+  $cobalt-blue-700: #274576;
+  $cobalt-blue-600: #385d99;
+  $cobalt-blue-500: #4876bb;
+  $brilliant-amaranth-700: #ab242a;
+  $brilliant-amaranth-600: #cd313b;
+  $brilliant-amaranth-500: #ef3e4c;
+  $color-text: #333;
+  $grey-300: #bfbfbf;
+  $grey-200: #d7d7d7;
+  $grey-100: #eee;
+*/
+
+// Naked button - apply no styles
+button {
+  background: none;
+  border: none;
+  color: inherit;
+  cursor: pointer;
+  font: inherit;
+  padding: 0;
+  -moz-appearance: none;
+  -webkit-appearance: none;
+
+  &:focus {
+    &::after {
+      outline: none;
+    }
+  }
+}
+
+// Require a .button class on all buttons
+.button {
+  background-color: $grey-0;
+  border: none;
+  border-right: 1px solid $grey-100;
+  border-bottom: 1px solid $grey-200;
+  border-radius: $border-radius;
+  box-shadow: 0 1px 0 $grey-200;
+  color: $color-text;
+  display: inline-block;
+  font-size: $font-size-500;
+  font-weight: bold;
+  letter-spacing: 0;
+  line-height: 1;
+  margin-bottom: $base-padding/2;
+  margin-right: $base-padding/2;
+  overflow: hidden;
+  padding: $base-padding $base-padding * 1.5;
+  position: relative;
+  text-align: center;
+  text-decoration: none;
+  text-overflow: ellipsis;
+  transition: all 0.15s ease-out;
+  white-space: nowrap;
+
+  &:hover,
+  &:focus {
+    background-color: $grey-200;
+    border-color: $grey-300;
+    color: inherit;
+    text-decoration: none;
+    z-index: 3;
+  }
+
+  .icon {
+    display: inline-block;
+    margin: 0;
+    bottom: -2px;
+    fill: inherit;
+    height: 1em;
+    pointer-events: none;
+    position: relative;
+    width: 1em;
+  }
+
+  &.button-primary {
+    background-color: $ts-green-500;
+    border-color: $ts-green-600;
+    box-shadow: 0 1px 0 $ts-green-600;
+
+    &:hover,
+    &:focus {
+      background-color: $ts-green-600;
+      border-color: $ts-green-700;
+    }
+  }
+
+  &.button-secondary {
+    background-color: $cobalt-blue-500;
+    border-color: $cobalt-blue-600;
+    box-shadow: 0 1px 0 $cobalt-blue-600;
+
+    &:hover,
+    &:focus {
+      background-color: $cobalt-blue-600;
+      border-color: $cobalt-blue-700;
+    }
+  }
+
+  &.button-negative {
+    background-color: $brilliant-amaranth-500;
+    border-color: $brilliant-amaranth-600;
+    box-shadow: 0 1px 0 $brilliant-amaranth-600;
+
+    &:hover,
+    &:focus {
+      background-color: $brilliant-amaranth-600;
+      border-color: $brilliant-amaranth-700;
+    }
+  }
+
+  // Add subtle text shadow for readability
+  &.button-primary,
+  &.button-secondary,
+  &.button-negative {
+    color: #fff;
+    fill: #fff;
+    text-shadow: 0 0 4px rgba(0, 0, 0, 0.1);
+  }
+
+  &.button-outlined {
+    background-color: transparent;
+    border: 2px solid $grey-100;
+    box-shadow: none;
+    padding: calc(#{$base-padding} - 1px) $base-padding * 1.5;
+    bottom: -1px;
+
+    &:hover,
+    &:focus {
+      border-color: $grey-300;
+    }
+
+    &:disabled {
+      border-color: $grey-100 !important;
+      color: $grey-400 !important;
+    }
+  }
+
+  &.button-scale {
+    &:hover,
+    &:focus {
+      background-color: $ts-green-500;
+      border-color: $ts-green-500;
+      box-shadow: $box-shadow;
+      color: #fff;
+      transform: scale(1.1);
+    }
+  }
+
+  &.button-large {
+    font-size: $font-size-700;
+    padding: $base-padding $base-padding * 2;
+  }
+
+  &.button-small {
+    font-size: $font-size-300;
+    padding: $base-padding/2 $base-padding;
+  }
+
+  &.button-link {
+    background-color: transparent;
+    border: none;
+    box-shadow: none;
+    color: $color-link;
+    font-weight: normal;
+
+    &:hover,
+    &:focus,
+    &:active {
+      background-color: $grey-0;
+      color: $color-link-hover;
+      text-decoration: underline;
+      transform: none;
+    }
+  }
+
+  &.button-icon {
+    padding-left: $base-padding/1.5;
+    padding-right: $base-padding/1.5;
+  }
+
+  // Add a loading spinner before the text when button is clicked
+  &.loading {
+    background-position: $base-padding * 1.5 50%;
+    background-size: $base-padding * 1.5 $base-padding * 1.5;
+    padding-left: $base-padding * 3.5;
+  }
+
+  &:disabled {
+    background-color: $grey-0 !important;
+    box-shadow: none !important;
+    border-color: $grey-200 !important;
+    color: $grey-600 !important;
+    cursor: not-allowed;
+    transform: none !important;
+  }
+
+  &:active,
+  &.active {
+    transform: translate3d(0, 1px, 0);
+    box-shadow: none;
+  }
+}
+
+.button-group {
+  display: flex;
+
+  > .button {
+    border-radius: 0;
+    margin-right: 0;
+
+    &:first-of-type {
+      border-radius: $border-radius 0 0 $border-radius;
+    }
+
+    &:last-of-type {
+      border-radius: 0 $border-radius $border-radius 0;
+    }
+  }
+}
+
+/* Reaction buttons @todo: move to own component */
+[data-reaction='vote'] {
+  &.active {
+    background-color: $brilliant-amaranth-500 !important;
+    color: #fff !important;
+
+    > div {
+      color: #fff !important;
+    }
+  }
+}
+
+[data-reaction='like'] {
+  &.active {
+    background-color: #fff !important;
+    color: $brilliant-amaranth-500 !important;
+  }
+}
+
+[data-reaction='bookmark'] {
+  &.active {
+    background-color: #fff !important;
+    color: $vivid-amber-500 !important;
+  }
+}

@@ -1,0 +1,424 @@
+/* Form ---------------------- */
+
+/* Required variables:
+  $base-padding: 0.75rem;
+  $border-radius: 4px;
+  $font-size-300: 0.875rem;
+  $ts-green-500: #78bc3a;
+  $ts-green-600: #5f9a2d;
+  $brilliant-amaranth-500: #ef3e4c;
+  $color-text: #333;
+  $color-text-lightest: #767676;
+  $grey-200: #d7d7d7;
+  $typeface-base: 'museo-sans', sans-serif;
+*/
+
+form {
+  position: relative;
+
+  label {
+    cursor: pointer;
+    display: block;
+
+    small {
+      color: $color-text-lightest;
+      display: block;
+      font-size: $font-size-300;
+      margin-top: $base-padding/2;
+    }
+  }
+
+  > :last-child {
+    margin-bottom: 0;
+  }
+}
+
+fieldset {
+  border: none;
+  border-bottom: 1px solid $grey-200;
+  margin: 0 0 $base-padding 0;
+  padding: $base-padding 0;
+
+  &:last-child {
+    border: none;
+  }
+}
+
+legend {
+  font-size: inherit;
+  margin-bottom: $base-padding;
+
+  h3 {
+    margin-bottom: $base-padding/2;
+  }
+}
+
+/* General types */
+input,
+textarea,
+select {
+  border: 1px solid $color-text-lightest;
+  border-radius: $border-radius;
+  font-family: $typeface-base;
+  font-size: 1em;
+  margin-top: $base-padding/2;
+  padding: $base-padding;
+  width: 100%;
+  -moz-appearance: none;
+  -webkit-appearance: none;
+}
+
+/* Cross-browser select element */
+select {
+  appearance: none;
+  background-color: #fff;
+  background: #fff
+    url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%23222222%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22%2F%3E%3C%2Fsvg%3E')
+    right 0.7em top 50% no-repeat;
+  background-size: 0.7em auto;
+  height: 3em;
+
+  &::-ms-expand {
+    display: none;
+  }
+}
+
+textarea {
+  line-height: 1.5;
+}
+
+input[type='checkbox'],
+input[type='radio'] {
+  width: auto;
+}
+
+input[type='checkbox'] {
+  -moz-appearance: checkbox;
+  -webkit-appearance: checkbox;
+}
+
+input[type='radio'] {
+  -moz-appearance: radio;
+  -webkit-appearance: radio;
+}
+
+.form-item,
+.form-choice {
+  margin-bottom: 1em;
+  max-width: 600px;
+  position: relative;
+
+  /* Error state */
+  &.invalid::after {
+    color: $brilliant-amaranth-500;
+    content: attr(data-error);
+    display: block;
+    font-size: $font-size-300;
+    -webkit-text-fill-color: $brilliant-amaranth-500;
+  }
+}
+
+.form-item {
+  &.invalid {
+    input,
+    textarea,
+    select {
+      border-color: $brilliant-amaranth-500;
+    }
+
+    &::after {
+      margin-top: $base-padding/2;
+    }
+  }
+
+  /* Valid state */
+  &.valid::after {
+    bottom: 0.7em;
+    content: url('data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"%3E%3Cg fill="none"%3E%3Cg fill="rgba(120,188,58,1)"%3E%3Cpath d="M12 0c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12-5.373-12-12-12zm-1.959 17l-4.5-4.319 1.395-1.435 3.08 2.937 7.021-7.183 1.422 1.409-8.418 8.591z"/%3E%3C/g%3E%3C/g%3E%3C/svg%3E');
+    height: 24px;
+    position: absolute;
+    right: 0.6em;
+    width: 24px;
+    z-index: 2;
+  }
+}
+
+/* Checkbox and radios */
+
+$choice-size: 0.7;
+.form-choice {
+  &::after {
+    clear: left;
+    content: '';
+    display: block;
+  }
+
+  input {
+    height: 2.2rem * $choice-size;
+    margin: 0;
+    opacity: 0;
+    position: absolute;
+    width: 2.2rem * $choice-size;
+    z-index: 0;
+    zoom: 1;
+
+    &:focus {
+      & + label::before {
+        outline-width: 2px;
+        outline-style: solid;
+        outline-color: Highlight;
+        outline-color: -webkit-focus-ring-color;
+      }
+    }
+
+    &:checked {
+      & + label {
+        color: $color-text;
+
+        &::after {
+          outline-offset: 0;
+          transform: scale(1);
+        }
+      }
+    }
+
+    &:disabled {
+      & + label,
+      & + label::before {
+        cursor: not-allowed;
+        opacity: 0.5;
+      }
+    }
+  }
+
+  label {
+    cursor: pointer;
+    display: block;
+    float: left;
+    margin-left: 3em * $choice-size;
+    outline: 0;
+    padding: 0.3em * $choice-size 0.375rem 0.3em * $choice-size 0;
+  }
+
+  input[type='checkbox'],
+  input[type='radio'] {
+    & + label::before {
+      background: transparent;
+      border: 1px solid $color-text-lightest;
+      content: '';
+      height: 2.2rem * $choice-size;
+      left: 0;
+      position: absolute;
+      top: 0;
+      width: 2.2rem * $choice-size;
+    }
+
+    & + label::after {
+      content: '';
+      background: transparent;
+      opacity: 0;
+      position: absolute;
+      transition: all 0.1s ease-out;
+      transform: scale(0.8);
+      transform-origin: 50% 50%;
+      zoom: 1;
+    }
+  }
+
+  input[type='checkbox'] {
+    & + label::before {
+      border-radius: $border-radius;
+    }
+
+    & + label::after {
+      border: solid;
+      border-width: 0 0 5px * $choice-size 5px * $choice-size;
+      border-top-color: transparent;
+      height: 0.72rem * $choice-size;
+      left: 0.5rem * $choice-size;
+      opacity: 0;
+      top: 0.625rem * $choice-size;
+      transform: rotate(-60deg);
+      width: 1.25rem * $choice-size;
+    }
+
+    &:checked {
+      & + label {
+        &::before {
+          background-color: $ts-green-500;
+          border-color: $ts-green-600;
+        }
+
+        &::after {
+          border-color: #fff;
+          opacity: 1;
+          transform: scale(1) rotate(-45deg);
+        }
+      }
+    }
+  }
+
+  input[type='radio'] {
+    & + label::before {
+      border-radius: 50%;
+    }
+
+    & + label::after {
+      background-color: $ts-green-500;
+      //border: 2px solid $color-text-lightest;
+      box-shadow: inset 0 0 0 5px #fff;
+      border-radius: 50%;
+      height: 2.2rem * $choice-size;
+      left: 0;
+      top: 0;
+      width: 2.2rem * $choice-size;
+    }
+
+    &:checked {
+      & + label {
+        &::before {
+          border-color: $ts-green-600;
+        }
+
+        &::after {
+          opacity: 1;
+        }
+      }
+    }
+  }
+
+  &.invalid {
+    input {
+      & + label::before {
+        border-color: $brilliant-amaranth-500;
+      }
+    }
+
+    &::after {
+      margin-left: 3.25em * $choice-size;
+    }
+  }
+}
+
+/* Show/hide password */
+#toggle-password {
+  all: inherit;
+  bottom: 0;
+  color: $color-text-lightest;
+  font-size: $font-size-200;
+  margin: 0;
+  padding: 0.9rem $base-padding;
+  position: absolute;
+  right: 0;
+  text-transform: uppercase;
+  -webkit-appearance: none;
+}
+
+/* Inline form */
+.form-inline div {
+  clear: none;
+  float: left;
+}
+
+.form-inline label {
+  margin-right: 1em;
+}
+
+/* Larger form elements on desktop */
+@media #{$medium-up} {
+  .form-large {
+    input,
+    textarea,
+    select,
+    button {
+      font-size: $font-size-700;
+      padding: $base-padding;
+    }
+  }
+}
+
+/* Search input and form */
+.form-search {
+  display: flex;
+  max-width: 38rem;
+
+  > * {
+    flex: 1 1 auto;
+    margin: 0;
+  }
+
+  input {
+    border-radius: $border-radius 0 0 $border-radius;
+    border-right: none;
+  }
+
+  .button {
+    border: none;
+    border-radius: 0 $border-radius $border-radius 0;
+    box-shadow: none;
+    padding: $base-padding;
+    width: auto;
+  }
+}
+
+/* Hide the styling on search input but keep the behaviour ie. 'Search' button on mobile keyboards */
+input[type='search']::-webkit-search-decoration,
+input[type='search']::-webkit-search-cancel-button,
+input[type='search']::-webkit-search-results-button,
+input[type='search']::-webkit-search-results-decoration {
+  display: none;
+}
+
+/* A toggle switch */
+$switch-size: 1.3; // To scale the size. Default to 1
+
+input.ui-switch {
+  background-color: $grey-300;
+  border: 0;
+  border-radius: 1em * $switch-size;
+  height: 20px * $switch-size;
+  margin-bottom: -4px * $switch-size;
+  outline: 0;
+  padding: 0;
+  position: relative;
+  width: 36px * $switch-size;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+
+  &::after {
+    background-color: #fff;
+    border-radius: 50%;
+    content: '';
+    display: block;
+    height: calc(100% - 4px);
+    left: 2px;
+    position: absolute;
+    top: 2px;
+    width: calc((100% - 4px) / 2);
+    transition: all 0.2s cubic-bezier(1, -0.26, 0.06, 1.35),
+      width 0.4s cubic-bezier(0.18, 0.89, 0.35, 1.15);
+  }
+
+  + label {
+    display: inline-block;
+    margin-left: $base-padding/2;
+  }
+
+  /* A subtle stretch before the switch moves */
+  &:active::after {
+    transform: scale(1.2, 1) translateX(10%);
+  }
+
+  &:checked {
+    background-color: $ts-green-500;
+
+    &::after {
+      transform: translateX(100%);
+    }
+
+    + label {
+      font-weight: bold;
+    }
+  }
+}
+/* End UI switch */

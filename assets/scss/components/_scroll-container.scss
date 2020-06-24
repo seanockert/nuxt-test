@@ -1,0 +1,49 @@
+/* Vertical scroll container  ---------------------- */
+
+.scroll,
+.scroll body {
+  height: 100%;
+}
+
+.scroll-container {
+  display: flex;
+  flex-flow: column;
+  height: 100%;
+  max-height: 100vh;
+
+  > * {
+    border: 1px dotted grey;
+  }
+
+  > header {
+    flex: 0 1 auto;
+  }
+  > footer {
+    flex: 0 1 40px;
+  }
+
+  .scroll-content {
+    flex-grow : 1;
+    background-color: blue;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+}
+
+
+
+.scroll-container2 {
+  display: flex;
+  flex-flow: column;
+  height: 100%;
+  background-color: red;
+
+}
+
+.scroll-content2 {
+  flex: 1 1 auto;
+  background-color: blue;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+}
+

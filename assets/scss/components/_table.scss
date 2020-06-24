@@ -1,0 +1,250 @@
+/* Table styles  ---------------------- */
+
+.option-table,
+.listing-table,
+.feature-table {
+  width: 100%;
+
+  td,
+  th {
+    border: 1px solid #ddd;
+    background-color: #fff;
+  }
+
+  small {
+    display: block;
+    color: #666;
+  }
+}
+
+.listing-table {
+  th {
+    background-color: $grey-0;
+  }
+
+  td,
+  th {
+    text-align: left;
+    line-height: 1.5;
+    padding: $base-padding;
+    min-width: 20%;
+  }
+
+  td {
+    font-size: $font-size-300;
+  }
+}
+
+.option-table,
+.feature-table {
+  td,
+  th {
+    padding: $base-padding;
+    text-align: center;
+  }
+
+  th {
+    font-size: $font-size-600;
+
+    &.empty {
+      background: transparent;
+    }
+  }
+
+  .icon-tick {
+    color: $ts-green-500;
+    margin: 0;
+    height: 1.2em;
+    width: 1.2em;
+  }
+
+  [data-tooltip] {
+    &::after {
+      text-align: left;
+      width: 240px;
+      white-space: normal;
+    }
+
+    .icon {
+      bottom: -4px;
+      margin: 0 0 0 $base-padding/3;
+      height: 1.2em;
+      width: 1.2em;
+      opacity: 0.7;
+
+      &:hover,
+      &:focus {
+        opacity: 1;
+      }
+    }
+  }
+}
+
+.option-table {
+  tr {
+    td:first-child {
+      text-align: left;
+      min-width: 240px;
+      line-height: 1.4;
+    }
+
+    th:first-child {
+      border: none;
+      text-align: left;
+    }
+  }
+
+  h3 {
+    font-size: $font-size-600;
+    margin: 0;
+  }
+}
+
+.feature-table {
+  td,
+  th {
+    border: none;
+    background-color: transparent;
+  }
+
+  tr:last-child {
+    td {
+      border-bottom: none;
+    }
+  }
+
+  th {
+    text-transform: uppercase;
+    font-size: $font-size-600;
+  }
+
+  thead {
+    tr {
+      th:first-child {
+        text-align: left;
+      }
+    }
+  }
+
+  tbody {
+    tr {
+      transition: $base-transition;
+
+      td:first-child {
+        text-align: left;
+      }
+
+      &:hover:not(.no-hover) {
+        background-color: rgba(0, 0, 0, 0.05);
+      }
+    }
+
+    td {
+      border-bottom: 1px solid #eee;
+    }
+  }
+
+  .feature-table-header {
+    text-transform: uppercase;
+    font-size: $font-size-300;
+    font-weight: bold;
+
+    td {
+      padding-top: $base-padding * 3;
+      border-bottom: none;
+    }
+
+    &:first-child {
+      td {
+        padding-top: 0;
+      }
+    }
+
+    .tooltip {
+      text-transform: none;
+      top: -1px;
+    }
+  }
+
+  .feature-table-info {
+    color: #fff;
+    opacity: 0.8;
+    font-size: $font-size-300;
+
+    td {
+      border: none;
+      text-align: center;
+    }
+  }
+}
+
+.section {
+  .option-table {
+    h3 {
+      text-align: center;
+    }
+  }
+}
+
+@media #{$small-only} {
+  // For responsive tables - add the label before content
+  .option-table {
+    td {
+      &:before {
+        display: block;
+        font-size: 0.75em;
+        color: $color-text;
+        opacity: 0.8;
+        padding: 0;
+        width: 100%;
+        text-align: center;
+        margin-bottom: 6px;
+        content: attr(data-title);
+        line-height: 1.2;
+      }
+    }
+
+    tr {
+      td:first-child,
+      th:first-child {
+        display: none;
+      }
+    }
+  }
+
+  .feature-table {
+    th,
+    td {
+      padding: $base-padding/2;
+      width: 25%;
+    }
+
+    td {
+      padding-top: 30px;
+    }
+  }
+
+  .listing-table {
+    td,
+    th {
+      vertical-align: top;
+    }
+  }
+}
+
+/* Used for pricing table so it will be responsive */
+.overflow {
+  box-shadow: inset -7px 0 9px -7px rgba(0, 0, 0, 0.1);
+  overflow-x: auto;
+  overflow-y: visible;
+  padding: $base-padding/2;
+  width: 100%;
+}
+
+@media #{$large-up} {
+  .overflow {
+    box-shadow: none;
+    overflow: visible;
+    padding: 0;
+  }
+}

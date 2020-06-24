@@ -1,0 +1,27 @@
+/* Carousel ---------------------- */
+
+ul.carousel {
+  align-items: top;
+  display: flex;
+  flex-wrap: nowrap;
+  list-style: none;
+  overflow-x: auto;
+  padding: 0 $base-padding/2;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+  -ms-overflow-style: -ms-autohiding-scrollbar;
+
+  > li {
+    flex: 1 1 39%;
+    min-height: 100px;
+    max-width: 240px;
+    min-width: 180px;
+    padding: 0 $base-padding/2;
+    scroll-snap-align: center;
+    scroll-padding: 0 $base-padding/2;
+
+    > div {
+      width: 100%;
+    }
+  }
+}

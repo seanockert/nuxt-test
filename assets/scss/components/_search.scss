@@ -1,0 +1,140 @@
+/* Algolia search ---------------------- */
+
+.search-container {
+	position: relative;
+	z-index: 9;
+
+	form {
+		border-radius: $border-radius;
+		//box-shadow: -2px 2px 2px rgba(0, 0, 0, 0.1), 2px -1px 3px rgba(0, 0, 0, 0.1);
+	}
+
+	input {
+		background-color: $grey-0;
+		border: none;
+		border-radius: $border-radius;
+		margin: 0;
+		padding-left: 2.65em;
+	}
+
+	button {
+		background: none;
+		border: none;
+		padding: $base-padding;
+		-webkit-appearance: none;
+	}
+
+	.autocomplete {
+		margin-top: -1px;
+		position: absolute;
+		top: 100%;
+		width: 100%;
+	}
+}
+
+.autocomplete {
+	background-color: #fff;
+	border-top: 1px solid $grey-100;
+	box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.1), -2px 1px 2px rgba(0, 0, 0, 0.1);
+
+	a {
+		align-items: center;
+		color: $color-text-lightest;
+		display: flex;
+		line-height: 1.5;
+		padding: $base-padding/1.5;
+		text-decoration: none;
+
+		> * {
+			flex: 0 0 auto;
+			margin-right: $base-padding/2;
+
+			> div {
+				color: $grey-500;
+				font-family: $typeface-header;
+				font-size: $font-size-200;
+				text-transform: uppercase;
+			}
+		}
+
+		> :first-child {
+			border-radius: $border-radius;
+			flex: 0 0 auto;
+			margin-right: $base-padding;
+			overflow: hidden;
+		}
+
+		&:hover,
+		&:focus {
+			background-color: $grey-0;
+		}
+
+		&:active {
+			background-color: rgba(72, 118, 187, 0.1);
+		}
+	}
+
+	ul,
+	ol {
+		list-style: none;
+		margin: 0;
+		padding: 0;
+	}
+
+	li {
+		padding: 0;
+	}
+
+	.icon {
+		color: $grey-500;
+		height: 1.2em;
+		width: 1.2em;
+	}
+
+	.label {
+		margin-left: auto;
+		margin-right: 0;
+	}
+
+	strong {
+		font-weight: normal;
+	}
+
+	strong,
+	.label {
+		color: $color-text;
+	}
+
+	mark {
+		background-color: $ts-green-100;
+		color: $color-text;
+		font-weight: 700;
+		padding: 0;
+	}
+
+	figure {
+		background-color: $grey-0;
+		max-height: 38px;
+		text-align: center;
+		width: 4.5em;
+	}
+
+	img {
+		height: auto;
+		width: inherit;
+	}
+
+	> span > div {
+		font-size: $font-size-200;
+		font-weight: 700;
+		margin-bottom: -3px;
+		text-transform: uppercase;
+	}
+}
+
+/* Position Algolia search loading indicator */
+.ais-SearchBox-loadingIndicator {
+	padding: 0.75rem;
+	position: absolute;
+	right: 0;
+}

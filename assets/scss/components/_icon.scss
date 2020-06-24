@@ -1,0 +1,71 @@
+/* Icon ---------------------- */
+
+.icon {
+  fill: currentColor;
+  height: 1.8rem;
+  margin: 0.375em;
+  position: relative;
+  width: 1.8rem;
+}
+
+.icon-small {
+  height: 1.2rem;
+  width: 1.2rem;
+}
+
+.icon-large {
+  height: 3.75rem;
+  width: 3.75rem;
+}
+
+h2 {
+  .icon {
+    height: 1.2em;
+    margin: -0.1875rem 0.375em -0.1875em 0;
+    width: 1.2em;
+  }
+}
+
+// Social icon colours
+.icon-social-facebook {
+  color: $color-facebook;
+}
+
+.icon-social-twitter {
+  color: $color-twitter;
+}
+
+.icon-social-instagram {
+  color: $color-instagram;
+}
+
+.icon-social-youtube {
+  color: $color-youtube;
+}
+
+.icon-social-pinterest {
+  color: $color-pinterest;
+}
+
+// Add a border and hover color around share icons
+.icon-share {
+  align-items: center;
+  background-color: $grey-0;
+  border-radius: 50%;
+  color: $color-link;
+  display: flex;
+  margin: $base-padding/4;
+
+  svg {
+    height: 1.3em;
+    margin: $base-padding/1.5;
+    width: 1.3em;
+  }
+
+  &:hover,
+  &:focus {
+    background-color: $color-link;
+    border-color: $color-link;
+    color: #fff;
+  }
+}

@@ -1,0 +1,109 @@
+/* Pricing Plan ---------------------- */
+
+/* Required variables:
+  $base-padding: 0.75rem;
+  $font-size-300: 0.875rem;
+
+  $ts-green-500: #78bc3a;
+  $color-text-lightest: #767676;
+  $grey-0: #f7f7f7;
+*/
+
+.pricing-plan {
+  border-radius: $border-radius;
+  margin-bottom: $base-padding * 2;
+  width: 100%;
+
+  h3 {
+    background-color: $ts-green-100;
+    border-radius: $border-radius $border-radius 0 0;
+    color: $ts-green-500;
+    letter-spacing: 0.03em;
+    margin: 0;
+    padding: $base-padding/2;
+    text-align: center;
+    text-transform: uppercase;
+  }
+
+  > div {
+    padding: $base-padding;
+  }
+
+  .button {
+    display: block;
+    margin: $base-padding;
+  }
+
+  ul {
+    margin: 0 $base-padding;
+    padding: 0;
+
+    li {
+      display: flex;
+      padding-bottom: $base-padding;
+
+      > :first-child {
+        flex: 0 0 auto;
+        margin: 0 $base-padding 0 0;
+        position: relative;
+        top: 2px;
+      }
+
+      svg {
+        height: 1.2em;
+        margin: 0;
+        width: 1.2em;
+
+        &.icon {
+          height: 1.2em;
+          width: 1.2em;
+        }
+      }
+
+      h4 {
+        margin: 0;
+      }
+    }
+
+    :last-child {
+      padding-bottom: 0;
+    }
+  }
+
+  &.plan-starter {
+    h3 {
+      background-color: $cobalt-blue-500;
+      color: #fff;
+    }
+  }
+
+  &.plan-teacher {
+    h3 {
+      background-color: $brilliant-amaranth-500;
+      color: #fff;
+    }
+  }
+
+  &.plan-ultimate {
+    h3 {
+      background-color: $strong-fuchsia-500;
+      color: #fff;
+    }
+  }
+}
+
+.pricing-plan-price {
+  font-family: $typeface-header;
+  font-weight: bold;
+  padding: $base-padding 0;
+  text-align: center;
+
+  strong {
+    font-size: $font-size-1000 * 1.5;
+  }
+
+  sup {
+    position: relative;
+    top: -2em;
+  }
+}

@@ -1,0 +1,136 @@
+/* Filter ---------------------- */
+
+.filter {
+  .dropdown-content {
+    margin-top: 2px;
+  }
+
+  .link-list {
+    li {
+      align-items: center;
+      display: flex;
+      position: relative;
+
+      label {
+        padding: $base-padding;
+        width: 100%;
+        white-space: nowrap;
+
+        &:hover,
+        &:focus {
+          background-color: $grey-0;
+        }
+      }
+
+      .label {
+        float: right;
+        font-weight: normal;
+        margin: -3px 0 -6px 0;
+      }
+    }
+  }
+
+  /* Basic checkboxes */
+  /*input[type='checkbox'] {
+    margin: 0 $base-padding/2 0 0;
+
+    &:checked + span {
+      font-weight: bold;
+    }
+  } */
+
+  /* Filter checkboxes */
+  input[type='checkbox'] {
+    height: 1.1rem;
+    margin: 0;
+    opacity: 0;
+    position: absolute;
+    width: 1.1rem;
+    z-index: 0;
+    zoom: 1;
+
+    & + label {
+      padding-left: 2.5em;
+    }
+
+    & + label::before {
+      background: transparent;
+      border: 1px solid $color-text-lightest;
+      border-radius: $border-radius;
+      content: '';
+      height: 1.1rem;
+      left: 0.75em;
+      position: absolute;
+      top: 0.7em;
+      width: 1.1rem;
+    }
+
+    & + label::after {
+      content: '';
+      background: transparent;
+      opacity: 0;
+      position: absolute;
+      transition: all 0.1s ease-out;
+      transform: scale(0.8);
+      transform-origin: 50% 50%;
+      zoom: 1;
+
+      border: solid;
+      border-width: 0 0 2px 2px;
+      border-top-color: transparent;
+      height: 0.36em;
+      left: 1em;
+      opacity: 0;
+      top: 1.1em;
+      transform: rotate(-60deg);
+      width: 0.625rem;
+    }
+
+    &:focus {
+      & + label::before {
+        outline-width: 2px;
+        outline-style: solid;
+        outline-color: Highlight;
+        outline-color: -webkit-focus-ring-color;
+      }
+    }
+
+    &:checked {
+      & + label {
+        font-weight: bold;
+
+        &::before {
+          background-color: $ts-green-500;
+          border-color: $ts-green-600;
+        }
+
+        &::after {
+          border-color: #fff;
+          opacity: 1;
+          transform: scale(1) rotate(-45deg);
+        }
+      }
+    }
+  }
+}
+
+.filter-toggle {
+  &.active {
+    color: $ts-green-500;
+
+    &.button-outlined {
+      border-color: $ts-green-300;
+    }
+  }
+}
+
+.filter-bar {
+  background-color: #fff;
+  border-bottom: 1px solid $grey-100;
+  padding: 0 $base-padding $base-padding $base-padding;
+
+  .button {
+    margin-bottom: 0;
+    max-width: 10em;
+  }
+}

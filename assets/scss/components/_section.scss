@@ -1,0 +1,178 @@
+/* Section ---------------------- */
+
+/* Required variables:
+  $base-padding: 0.75rem;
+  $ts-green-500: #78bc3a;
+  $cobalt-blue-500: #4876bb;
+  $color-text-lightest: #767676;
+  $grey-0: #f7f7f7;
+*/
+
+.section {
+	padding: $base-padding * 2 $base-padding;
+
+	.columns {
+		padding-bottom: $base-padding * 2;
+
+		&:last-child {
+			padding-bottom: 0;
+		}
+	}
+
+	h1,
+	h2,
+	h3,
+	h4 {
+		margin-top: 0;
+	}
+
+	h1 {
+		margin-bottom: $base-padding/2;
+	}
+
+	h4 {
+		text-transform: uppercase;
+		letter-spacing: 0.03em;
+	}
+
+	h1,
+	h2,
+	h3,
+	p {
+		color: inherit;
+	}
+
+	&.section-narrow {
+		padding-bottom: 0;
+
+		.columns {
+			padding-top: 0;
+			padding-bottom: 0;
+		}
+	}
+}
+
+.section-hero {
+	h1 {
+		color: $ts-green-500;
+	}
+
+	h3 {
+		font-size: $font-size-700;
+	}
+}
+
+.section-callout {
+	background-color: $grey-0;
+}
+
+.section-primary,
+.section-secondary {
+	color: #fff;
+
+	h1 {
+		color: #fff;
+	}
+
+	h3 {
+		color: $color-text;
+		opacity: 0.7;
+	}
+
+	p {
+		opacity: 0.9;
+	}
+}
+
+.section-primary {
+	background: $ts-green-500;
+
+	// Match background colour for expanding content button
+	.collapse.collapse-text {
+		button::after {
+			background: linear-gradient(to right, rgba(120, 188, 58, 0), $ts-green-500 30%);
+			color: #fff;
+			text-decoration: underline;
+			-webkit-text-fill-color: #fff;
+		}
+	}
+}
+
+.section-secondary {
+	background: $cobalt-blue-500;
+
+	.collapse.collapse-text {
+		button::after {
+			background: linear-gradient(to right, rgba(72, 118, 187, 0), $cobalt-blue-500 30%);
+			color: #fff;
+			text-decoration: underline;
+			-webkit-text-fill-color: #fff;
+		}
+	}
+}
+
+// Add a wavy line below the header
+.section-wavy {
+	padding-bottom: $base-padding * 4;
+	z-index: 2;
+
+	// Image can break out of the header box
+	.wavy-img {
+		margin-bottom: -$base-padding * 3;
+		position: relative;
+		z-index: 3;
+	}
+}
+
+.wavy {
+	margin-top: -$base-padding * 4;
+	position: absolute;
+	transform: translateY(-50%);
+	width: 100%;
+	z-index: 1;
+
+	&::after {
+		content: '';
+		display: block;
+		height: $base-padding;
+	}
+}
+
+footer.section {
+	&.section-primary {
+		h3,
+		ul,
+		a {
+			color: #fff;
+			opacity: 1;
+		}
+
+		a {
+			opacity: 0.7;
+			text-decoration: none;
+
+			&:hover,
+			&:focus {
+				opacity: 1;
+			}
+		}
+
+		.dropdown-content {
+			a {
+				color: $color-link;
+			}
+		}
+	}
+
+	.link-list {
+		li {
+			margin-left: -$base-padding;
+		}
+	}
+}
+
+@media #{$medium-up} {
+	.section {
+		padding: $base-padding * 4 $base-padding * 2;
+	}
+}

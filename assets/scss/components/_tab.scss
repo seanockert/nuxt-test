@@ -1,0 +1,76 @@
+/* Tab ---------------------- */
+/* Using this: https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/Tab_Role#Example */
+.tablist {
+  box-shadow: inset 0 -2px 0 0 $grey-0;
+  display: flex;
+  list-style: none;
+  overflow-x: auto;
+  padding: 0;
+  position: relative;
+
+  :first-child {
+    border-radius: $border-radius 0 0 0;
+  }
+
+  :last-child {
+    border-radius: 0 $border-radius 0 0;
+  }
+
+  > * {
+    color: $color-link;
+    flex: 1 1 auto;
+    padding: $base-padding $base-padding * 2;
+    text-align: center;
+    transition: box-shadow 0.15s ease-out;
+    white-space: nowrap;
+    -webkit-appearance: none;
+
+    &:hover,
+    &:focus {
+      background-color: $grey-0;
+      border-color: $ts-green-100;
+      text-decoration: none;
+    }
+
+    &[aria-selected="true"],
+    &.active {
+      box-shadow: inset 0 -2px 0 0 $ts-green-300;
+      color: inherit;
+      font-weight: bold;
+      z-index: 3;
+    }
+  }
+
+  .tab-icon {
+    padding: $base-padding/2 $base-padding * 2;
+
+    svg {
+      margin: 0;
+    }
+  }
+}
+
+.tabpanel {
+  padding: $base-padding;
+  z-index: 2;
+
+  &:focus {
+    outline: none;
+  }
+}
+
+// Optional wrapper if tab list is long - fades out right side
+.tab-wrapper {
+  position: relative;
+
+  &::before {
+    background: linear-gradient(to right, rgba(255, 255, 255, 0), #fff);
+    content: "";
+    height: 2.6rem;
+    position: absolute;
+    right: 0;
+    top: 9;
+    width: 1rem;
+    z-index: 2;
+  }
+}

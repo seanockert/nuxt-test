@@ -1,0 +1,180 @@
+/* Vertical Nav with split section ---------------------- */
+
+/* Required variables:
+  $base-padding: 0.75rem;
+  $border-radius: 4px;
+*/
+
+$icon-size: 1;
+
+.nav-vertical {
+  align-items: flex-start;
+  background-color: $ts-green-500;
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  min-height: 100%;
+  z-index: 99;
+
+  ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+
+    &.push-top {
+      margin-top: auto;
+    }
+  }
+
+  li {
+    padding: 0;
+
+    &.active {
+      background-color: $grey-0;
+
+      a {
+        background-color: transparent;
+        opacity: 1;
+
+        .icon {
+          color: $ts-green-500;
+        }
+      }
+    }
+  }
+
+  a {
+    align-items: center;
+    border-radius: 50%;
+    color: inherit;
+    display: flex;
+    line-height: 0.8;
+    margin: $base-padding $base-padding/2;
+    opacity: 0.8;
+    position: relative;
+    white-space: nowrap;
+
+    .icon {
+      height: 1.5rem * $icon-size;
+      margin: $base-padding/1.5;
+      width: 1.5rem * $icon-size;
+    }
+
+    // Word next to icon
+    span {
+      margin-left: $base-padding/4;
+    }
+
+    sup {
+      position: absolute;
+      right: -1em;
+      top: 1em;
+    }
+
+    &:hover,
+    &:focus {
+      background-color: rgba(0, 0, 0, 0.1);
+      opacity: 1;
+    }
+
+    &.icon-ts {
+      opacity: 1;
+
+      .icon {
+        color: #fff;
+      }
+    }
+  }
+
+  // Smaller tooltips
+  [data-tooltip] {
+    &::after {
+      width: auto;
+    }
+  }
+}
+
+.nav-vertical-menu {
+  background-color: $grey-0;
+  bottom: 0;
+  font-size: $font-size-300;
+  left: 52px;
+  min-width: 150px;
+  overflow-y: auto;
+  padding: $base-padding 0;
+  position: fixed;
+  top: 0;
+  transition: all 0.2s ease-out;
+  -webkit-overflow-scrolling: touch;
+  z-index: 98;
+
+  &::after {
+    background: linear-gradient(
+      to right,
+      rgba(0, 0, 0, 0.01),
+      rgba(0, 0, 0, 0.15)
+    );
+    bottom: 0;
+    content: '';
+    display: flex;
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 3px;
+  }
+
+  h3 {
+    margin: $base-padding/1.5 $base-padding $base-padding $base-padding;
+  }
+
+  li {
+    &.active {
+      a {
+        color: $ts-green-500;
+      }
+    }
+  }
+
+  a {
+    color: inherit;
+  }
+
+  button {
+    padding: $base-padding;
+
+    &::after {
+      margin-top: -3px;
+      right: $base-padding;
+      top: 50%;
+    }
+  }
+
+  a,
+  button {
+    &:hover {
+      background-color: rgba(255, 255, 255, 0.8);
+      text-decoration: none;
+    }
+  }
+
+  .collapse [aria-expanded='true'] {
+    font-weight: normal;
+  }
+}
+
+@media #{$medium-up} {
+  .nav-vertical-menu {
+    left: 0;
+    position: relative;
+    z-index: 1;
+  }
+}
+
+@media #{$large-up} {
+  .nav-vertical {
+    a {
+      margin: $base-padding;
+    }
+  }
+}

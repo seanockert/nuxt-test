@@ -1,0 +1,199 @@
+/* Helper classes */
+.block {
+	display: block;
+	width: 100%;
+}
+
+.box {
+	border: 1px solid $grey-200;
+	border-radius: $border-radius;
+	padding: $base-padding;
+}
+
+@media #{$medium-up} {
+	.box {
+		padding: $base-padding * 2;
+	}
+}
+
+// Used for avatar images
+.circle {
+	border-radius: 50%;
+}
+
+.clearfix:after {
+	content: '';
+	clear: both;
+	display: table;
+}
+
+.list-counter {
+	border: 1px solid currentColor;
+	border-radius: 50%;
+	display: inline-block;
+	height: 1.5em;
+	line-height: 1;
+	padding: 0.2em;
+	margin-right: $base-padding/2;
+	text-align: center;
+	text-decoration: none;
+	width: 1.5em;
+}
+
+// Fixed position on desktop
+@media #{$medium-up} {
+	.fixed {
+		position: fixed;
+		width: 100%;
+		z-index: 999;
+
+		+ main {
+			padding-top: 80px;
+		}
+	}
+}
+
+.flex {
+	align-items: center;
+	display: flex;
+
+	> * {
+		flex: 0 1 auto;
+	}
+}
+
+[hidden],
+.hidden {
+	display: none !important;
+}
+
+hr {
+	background-color: $grey-200;
+	border: none;
+	color: $grey-200;
+	height: 1px;
+	margin: $base-padding 0;
+}
+
+.loading {
+	background-image: url('#{$asset-path}loading.gif');
+	background-position: 50% 50%;
+	background-repeat: no-repeat;
+	background-size: $base-padding * 2 $base-padding * 2;
+	min-height: $base-padding * 3;
+}
+
+.link-list {
+	li {
+		line-height: 1;
+		padding: 0;
+	}
+
+	a {
+		align-items: center;
+		display: flex;
+		padding: $base-padding;
+		white-space: nowrap;
+
+		&:hover,
+		&:focus {
+			background-color: rgba(0, 0, 0, 0.05);
+		}
+
+		&:active {
+			background-color: rgba(72, 118, 187, 0.1);
+		}
+	}
+
+	.link-list {
+		margin-left: $base-padding;
+	}
+}
+
+.no-list,
+.inline-list,
+.link-list {
+	list-style: none;
+	padding: 0;
+}
+
+.inline-list {
+	> * {
+		display: inline-block;
+	}
+
+	.button {
+		margin-bottom: 0;
+	}
+}
+
+.no-padding {
+	padding: 0;
+}
+
+// Flex element align right
+.pull-right {
+	margin-left: auto;
+}
+
+small,
+.small {
+	font-size: $font-size-300;
+}
+
+// Screen reader only - hidden visually
+.sr-only {
+	border: 0 !important;
+	clip: rect(1px, 1px, 1px, 1px) !important;
+	-webkit-clip-path: inset(50%) !important;
+	clip-path: inset(50%) !important;
+	height: 1px !important;
+	margin: -1px !important;
+	overflow: hidden !important;
+	padding: 0 !important;
+	position: absolute !important;
+	width: 1px !important;
+	white-space: nowrap !important;
+}
+
+// For sticky sidebars. Only stick if you can fit
+@media (min-height: 300px) {
+	.sticky {
+		position: sticky;
+		top: 0;
+	}
+}
+
+@media #{$small-only} {
+	.hidden-small {
+		display: none;
+	}
+}
+
+@media #{$medium-only} {
+	.hidden-medium {
+		display: none;
+	}
+}
+
+@media #{$medium-up} {
+	.hidden-small {
+		display: block;
+	}
+
+	.hidden-medium-up {
+		display: none;
+	}
+}
+
+@media #{$large-only} {
+	.hidden-large {
+		display: none;
+	}
+}
+
+@media #{$xlarge-only} {
+	.hidden-xlarge {
+		display: none;
+	}
+}
