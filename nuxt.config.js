@@ -147,7 +147,12 @@ export default {
   proxy: {
     '/api/': process.env.API_URL || 'https://staging-api.teachstarter.com',
   },
-  auth: {
+  /*auth: {
+    redirect: {
+      login: '/login',
+      logout: '/logout',
+      home: '/',
+    },
     strategies: {
       local: {
         endpoints: {
@@ -158,27 +163,6 @@ export default {
           },
           user: { url: '/', method: 'get', propertyName: 'data' },
           logout: false,
-        },
-      },
-    },
-  },
-
-  /*auth: {
-    redirect: {
-      login: '/login',
-      logout: '/logout',
-      home: '/author',
-    },
-    strategies: {
-      local: {
-        endpoints: {
-          login: {
-            url: '/user/login',
-            method: 'post',
-            propertyName: 'data.token',
-          },
-          logout: false,
-          user: false,
         },
         tokenType: '',
         tokenName: 'x-auth',

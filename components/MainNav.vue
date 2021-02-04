@@ -38,7 +38,7 @@
 			<nuxt-link to="/about" title="">
 				About
 			</nuxt-link>
-			<nuxt-link :to="localePath('/resources')" title="">
+			<nuxt-link :to="localePath('/teaching-resources')" title="">
 				Resources
 			</nuxt-link>
 			<nuxt-link :to="localePath('/blog')" title="">

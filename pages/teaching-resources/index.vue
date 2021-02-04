@@ -69,11 +69,12 @@ export default {
         perPage: resourceCount,
         orderBy: 'viewCount',
       };
+
       const resources = await $axios.get($axios.defaults.baseURL + '/public/v2/resource', {
         params: paramsResources,
         headers: { 'Country-Code': app.i18n.locale },
       });
-
+      console.log('ra', resources);
       data.resources = resources.data.list;
       data.resourcesError = null;
     } catch (error) {
