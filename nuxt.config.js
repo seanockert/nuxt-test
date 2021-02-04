@@ -1,6 +1,6 @@
 import axios from 'axios';
 export default {
-  mode: 'universal',
+  ssr: true,
   // If you provide a version, it will be stored inside cache.
   // Later when you deploy a new version, old cache will be
   // automatically purged.
@@ -8,6 +8,9 @@ export default {
   /*
    ** Headers of the page
    */
+  env: {
+    baseURL: process.env.BASE_URL,
+  },
   head: {
     titleTemplate: '%s | Teach Starter',
     meta: [
@@ -39,7 +42,10 @@ export default {
   /*
    ** Plugins to load before mounting the App
    */
-  plugins: [],
+  plugins: [
+    { src: '@/plugins/vue-shortkey.js', mode: 'client' },
+    { src: '@/plugins/vue-photoswipe.js', mode: 'client' },
+  ],
   /*
    ** Nuxt.js dev-modules
    */
@@ -54,9 +60,10 @@ export default {
     // Doc: https://axios.nuxtjs.org/usage
     '@nuxtjs/axios',
     '@nuxtjs/proxy',
+    '@nuxtjs/auth-next',
     '@nuxtjs/style-resources',
+    '@nuxtjs/dayjs',
     'nuxt-ssr-cache',
-    'nuxt-dayjs-module',
     'cookie-universal-nuxt',
     [
       'nuxt-i18n',
@@ -86,6 +93,7 @@ export default {
           },
         },
         onLanguageSwitched: (previous, current) => {
+          // Set a new cookie
           /*if (process.client) {
             const DATE = new Date();
             DATE.setTime(DATE.getTime() + 365 * 24 * 3600 * 1000);
@@ -107,8 +115,10 @@ export default {
    ** See https://axios.nuxtjs.org/options
    */
   axios: {
+    proxy: true,
+    baseURL: process.env.API_URL || 'https://staging-api.teachstarter.com',
     /* Unused - not using global Axios */
-    baseURL: 'https://staging-api.teachstarter.com',
+    /*baseURL: 'https://staging-api.teachstarter.com',
     credentials: false,
     debug: true,
     retry: {
@@ -119,14 +129,63 @@ export default {
       config.headers.common['Accept-Encoding'] = '*';
       config.headers.common['Country-Code'] = 'us';
 
-      /*config.headers.common['Authorization'] = '';
-      config.headers.common['Content-Type'] = 'application/x-www-form-urlencoded;application/json';*/
+      //config.headers.common['Authorization'] = '';
+      //config.headers.common['Content-Type'] = 'application/x-www-form-urlencoded;application/json';
       return config;
+    },*/
+  },
+  publicRuntimeConfig: {
+    axios: {
+      browserBaseURL: process.env.API_URL || 'https://staging-api.teachstarter.com',
+    },
+  },
+  privateRuntimeConfig: {
+    axios: {
+      baseURL: process.env.API_URL || 'https://staging-api.teachstarter.com',
     },
   },
   proxy: {
-    '/api': 'https://staging-api.teachstarter.com',
+    '/api/': process.env.API_URL || 'https://staging-api.teachstarter.com',
   },
+  auth: {
+    strategies: {
+      local: {
+        endpoints: {
+          login: {
+            url: process.env.API_URL + '/v1/user/login/',
+            method: 'post',
+            propertyName: 'data.token',
+          },
+          user: { url: '/', method: 'get', propertyName: 'data' },
+          logout: false,
+        },
+      },
+    },
+  },
+
+  /*auth: {
+    redirect: {
+      login: '/login',
+      logout: '/logout',
+      home: '/author',
+    },
+    strategies: {
+      local: {
+        endpoints: {
+          login: {
+            url: '/user/login',
+            method: 'post',
+            propertyName: 'data.token',
+          },
+          logout: false,
+          user: false,
+        },
+        tokenType: '',
+        tokenName: 'x-auth',
+        autoFetchUser: false,
+      },
+    },
+  },*/
   /*
    ** Build configuration
    */
@@ -154,7 +213,7 @@ export default {
   generate: {
     // Grab all the resources from API when running 'generate'
     // Can you see the problem?
-    routes: function() {
+    /*routes: function() {
       let resources = axios
         .get('https://staging-api.teachstarter.com/v1/resource/', {
           params: { type: ['teaching-resource', 'resource-pack'], perPage: 30 },
@@ -210,7 +269,7 @@ export default {
       return Promise.all([resources, posts, freeResources, unitPlans]).then(values => {
         return [...values[0], ...values[1], ...values[2], ...values[3]];
       });
-    },
+    },*/
   },
   dayjs: {
     //locales: ['en', 'es'],
@@ -223,7 +282,7 @@ export default {
     exclude: ['/admin/**'],
     routes: () => {
       return axios
-        .get('https://staging-api.teachstarter.com/v1/resource/', {
+        .get('https://staging-api.teachstarter.com/v2/resource/', {
           params: { type: ['teaching-resource', 'resource-pack'], perPage: 30 },
         })
         .then(response => {
@@ -263,6 +322,19 @@ export default {
 
       // number of seconds to store this page in cache
       ttl: 60,
+
+      /*
+      Or use redis instead:
+      type: 'redis',
+      host: 'localhost',
+      ttl: 10 * 60,
+      configure: [
+        // these values are configured
+        // on redis upon initialization
+        ['maxmemory', '200mb'],
+        ['maxmemory-policy', 'allkeys-lru'],
+      ],
+      */
     },
   },
 };

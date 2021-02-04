@@ -1,140 +1,187 @@
 /* Algolia search ---------------------- */
 
 .search-container {
-	position: relative;
-	z-index: 9;
+  border-radius: $border-radius;
+  flex: 1 1 auto;
+  margin: 0 $base-padding 0 0;
+  max-width: 40rem;
+  position: relative;
+  z-index: 10;
+}
 
-	form {
-		border-radius: $border-radius;
-		//box-shadow: -2px 2px 2px rgba(0, 0, 0, 0.1), 2px -1px 3px rgba(0, 0, 0, 0.1);
-	}
+#query {
+  background-color: $grey-0;
+  border: none;
+  border-radius: $border-radius;
+  margin: 0;
+  padding-left: 2.25em;
 
-	input {
-		background-color: $grey-0;
-		border: none;
-		border-radius: $border-radius;
-		margin: 0;
-		padding-left: 2.65em;
-	}
+  &::-webkit-search-decoration {
+    -webkit-appearance: none;
+  }
 
-	button {
-		background: none;
-		border: none;
-		padding: $base-padding;
-		-webkit-appearance: none;
-	}
+  &::placeholder {
+    line-height: 1.2;
+  }
 
-	.autocomplete {
-		margin-top: -1px;
-		position: absolute;
-		top: 100%;
-		width: 100%;
-	}
+  &:hover {
+    background-color: $grey-100;
+  }
+
+  &:focus {
+    background-color: #fff;
+  }
+}
+
+.main-nav-search-button {
+  background: none;
+  border: none;
+  left: 0;
+  padding: $base-padding;
+  position: absolute;
+  top: 0;
+  -webkit-appearance: none;
+
+  svg {
+    color: $grey-500;
+    bottom: -2px;
+    position: relative;
+  }
 }
 
 .autocomplete {
-	background-color: #fff;
-	border-top: 1px solid $grey-100;
-	box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.1), -2px 1px 2px rgba(0, 0, 0, 0.1);
+  background-color: #fff;
+  border-top: 1px solid $grey-100;
+  box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.1), -2px 1px 2px rgba(0, 0, 0, 0.1);
+  font-family: $typeface-base;
+  margin-top: -1px;
+  position: absolute;
+  top: 100%;
+  width: 100%;
 
-	a {
-		align-items: center;
-		color: $color-text-lightest;
-		display: flex;
-		line-height: 1.5;
-		padding: $base-padding/1.5;
-		text-decoration: none;
+  li {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    padding: 0;
+  }
 
-		> * {
-			flex: 0 0 auto;
-			margin-right: $base-padding/2;
+  a {
+    align-items: center;
+    color: $color-text-lightest;
+    display: flex;
+    line-height: 1.5;
+    padding: $base-padding/1.5;
+    text-decoration: none;
 
-			> div {
-				color: $grey-500;
-				font-family: $typeface-header;
-				font-size: $font-size-200;
-				text-transform: uppercase;
-			}
-		}
+    > * {
+      margin: 0 $base-padding/3;
 
-		> :first-child {
-			border-radius: $border-radius;
-			flex: 0 0 auto;
-			margin-right: $base-padding;
-			overflow: hidden;
-		}
+      > div {
+        color: $grey-500;
+        font-family: $typeface-header;
+        font-size: $font-size-200;
+        text-transform: uppercase;
+      }
+    }
 
-		&:hover,
-		&:focus {
-			background-color: $grey-0;
-		}
+    span {
+      flex: 1;
+    }
 
-		&:active {
-			background-color: rgba(72, 118, 187, 0.1);
-		}
-	}
+    figure {
+      background-color: $grey-0;
+      flex: 0 0 auto;
+      margin-left: 0;
+      max-height: 38px;
+      text-align: center;
+      width: 4.5em;
+    }
 
-	ul,
-	ol {
-		list-style: none;
-		margin: 0;
-		padding: 0;
-	}
+    [class*='text'] {
+      color: $ts-green-500;
+    }
 
-	li {
-		padding: 0;
-	}
+    .text-teaching-resource {
+      color: $sea-green-500;
+    }
 
-	.icon {
-		color: $grey-500;
-		height: 1.2em;
-		width: 1.2em;
-	}
+    .text-unit-plan,
+    .text-lesson-plan {
+      color: $strong-fuchsia-500;
+    }
 
-	.label {
-		margin-left: auto;
-		margin-right: 0;
-	}
+    .text-blog {
+      color: $moderate-purple-500;
+    }
 
-	strong {
-		font-weight: normal;
-	}
+    &:hover,
+    &:focus {
+      background-color: $grey-0;
+    }
 
-	strong,
-	.label {
-		color: $color-text;
-	}
+    &:active {
+      background-color: $grey-100;
+    }
+  }
 
-	mark {
-		background-color: $ts-green-100;
-		color: $color-text;
-		font-weight: 700;
-		padding: 0;
-	}
+  > span > div {
+    font-size: $font-size-200;
+    font-weight: 700;
+    margin-bottom: -3px;
+    text-transform: uppercase;
+  }
 
-	figure {
-		background-color: $grey-0;
-		max-height: 38px;
-		text-align: center;
-		width: 4.5em;
-	}
+  svg {
+    color: $grey-400;
+  }
 
-	img {
-		height: auto;
-		width: inherit;
-	}
-
-	> span > div {
-		font-size: $font-size-200;
-		font-weight: 700;
-		margin-bottom: -3px;
-		text-transform: uppercase;
-	}
+  .label {
+    flex: 0 0 auto;
+    margin-left: auto;
+  }
 }
 
-/* Position Algolia search loading indicator */
-.ais-SearchBox-loadingIndicator {
-	padding: 0.75rem;
-	position: absolute;
-	right: 0;
+mark {
+  background-color: transparent;
+  color: $color-text;
+  font-weight: 700;
+  padding: 0;
+}
+
+img {
+  height: auto;
+  border-radius: $border-radius;
+  width: inherit;
+}
+
+strong {
+  color: $color-text;
+  font-weight: normal;
+}
+
+#autocomplete-topics {
+  strong {
+    max-width: 20rem;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+}
+
+.skeleton {
+  align-items: center;
+  display: flex;
+
+  > * {
+    flex: 1 1 auto;
+    height: 1.5rem;
+    margin: $base-padding/1.5;
+  }
+
+  :first-child {
+    border-radius: $border-radius;
+    flex: 0 0 auto;
+    height: 2.3rem;
+    margin-right: 0;
+    width: 4.5rem;
+  }
 }

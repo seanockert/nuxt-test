@@ -89,6 +89,7 @@
     border: none;
     cursor: pointer;
     font-size: inherit;
+    outline: none;
     transition: all 0.2s ease-out;
     -webkit-appearance: none;
 
@@ -101,13 +102,27 @@
 
     &:hover {
       background-color: rgba(0, 0, 0, 0.8);
-      transform: scale(1.1);
     }
 
     &:active {
       background-color: rgba(0, 0, 0, 0.3);
-      transform: scale(1);
+      transform: scale(0.95);
     }
+
+    &[data-reaction='bookmark'].active {
+      background-color: #fff;
+      color: $vivid-amber-500;
+    }
+
+    &[data-reaction='like'].active {
+      background-color: #fff;
+      color: $brilliant-amaranth-500;
+    }
+  }
+
+  .label {
+    margin-right: $base-padding/2;
+    padding: $base-padding/4;
   }
 
   &.shadow {
@@ -115,6 +130,14 @@
 
     > * {
       padding: $base-padding $base-padding 0 $base-padding;
+    }
+
+    .card-header {
+      padding-bottom: $base-padding;
+
+      + .card-img {
+        border-radius: 0;
+      }
     }
 
     .card-img {
@@ -318,8 +341,11 @@
     flex: 1 1 auto;
   }
 
-  img,
-  svg {
+  .pull-right {
+    flex: 0 0 auto;
+  }
+
+  img {
     border: 2px solid #fff;
     border-radius: 50%;
     flex: 0 0 auto;
@@ -332,6 +358,20 @@
   img + img {
     margin-left: -$base-padding * 1.8;
     z-index: 2;
+  }
+
+  button {
+    background-color: $grey-0;
+    border-radius: 50%;
+    color: $color-text;
+    line-height: 0;
+    padding: $base-padding/2;
+    margin: 0 0 0 $base-padding/2;
+
+    &:hover,
+    &:focus {
+      background-color: $grey-100;
+    }
   }
 }
 
@@ -510,19 +550,20 @@
 }
 
 /* Theming */
-.card.card-resource {
+.card.card-teaching-resource {
   h4 {
     color: $sea-green-500;
   }
 }
 
-.card.card-plan {
+.card.card-unit-plan,
+.card.card-lesson-plan {
   h4 {
     color: $strong-fuchsia-500;
   }
 }
 
-.card.card-blog {
+.card.card-blog-post {
   h4 {
     color: $moderate-purple-500;
   }

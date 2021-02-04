@@ -31,15 +31,7 @@
 		</h2>
 
 		<div class="main-nav-search">
-			<form action="" method="get" class="search-container">
-				<label for="query" hidden="">Search</label>
-				<input id="query" type="search" placeholder="Search resources..." name="query" disabled />
-				<button role="submit" class="main-nav-search-button" aria-label="Search">
-					<svg class="icon-small" role="img" aria-hidden="true">
-						<use xlink:href="~/assets/images/fa-icons.svg#search"></use>
-					</svg>
-				</button>
-			</form>
+			<global-search />
 		</div>
 
 		<div class="main-nav-links">
@@ -54,6 +46,10 @@
 			</nuxt-link>
 			<nuxt-link to="/feed" title="">
 				Feed
+			</nuxt-link>
+			<div v-if="isAuthenticated">{{ loggedInUser.id }}</div>
+			<nuxt-link v-else to="/login" title="">
+				Login
 			</nuxt-link>
 
 			<dropdown-menu position="drop-left" type="">
@@ -97,11 +93,14 @@
  */
 
 import DropdownMenu from './DropdownMenu.vue';
+import GlobalSearch from './GlobalSearch.vue';
+import { mapGetters } from 'vuex';
 
 export default {
 	name: 'Nav',
 	components: {
 		DropdownMenu,
+		GlobalSearch,
 	},
 	data() {
 		return {
@@ -112,6 +111,9 @@ export default {
 				{ name: 'United Kingdom', slug: 'gb' },
 			],
 		};
+	},
+	computed: {
+		...mapGetters(['isAuthenticated', 'loggedInUser']),
 	},
 	created() {
 		this.activeCountry = this.$store.state.region;

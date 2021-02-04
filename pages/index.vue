@@ -16,8 +16,6 @@
 
             <nuxt-link to="/feed" title="" class="button button-outlined">Or homefeed</nuxt-link>
           </p>
-
-          <!--<Netlify1 />-->
         </div>
 
         <div class="columns small-12 medium-6 large-7">
@@ -41,13 +39,8 @@
  * @methods:
  */
 
-import Netlify1 from '~/components/Netlify1.vue';
-
 export default {
   name: 'Homepage',
-  components: {
-    Netlify1,
-  },
   data() {
     return {
       title: 'Home',

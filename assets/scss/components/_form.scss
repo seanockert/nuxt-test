@@ -25,6 +25,11 @@ form {
       display: block;
       font-size: $font-size-300;
       margin-top: $base-padding/2;
+
+      a {
+        color: inherit;
+        text-decoration: underline;
+      }
     }
   }
 
@@ -35,7 +40,7 @@ form {
 
 fieldset {
   border: none;
-  border-bottom: 1px solid $grey-200;
+  border-bottom: 1px solid $grey-100;
   margin: 0 0 $base-padding 0;
   padding: $base-padding 0;
 
@@ -49,7 +54,7 @@ legend {
   margin-bottom: $base-padding;
 
   h3 {
-    margin-bottom: $base-padding/2;
+    margin: $base-padding/2 0;
   }
 }
 
@@ -57,7 +62,7 @@ legend {
 input,
 textarea,
 select {
-  border: 1px solid $color-text-lightest;
+  border: 1px solid $grey-300;
   border-radius: $border-radius;
   font-family: $typeface-base;
   font-size: 1em;
@@ -334,30 +339,6 @@ $choice-size: 0.7;
       font-size: $font-size-700;
       padding: $base-padding;
     }
-  }
-}
-
-/* Search input and form */
-.form-search {
-  display: flex;
-  max-width: 38rem;
-
-  > * {
-    flex: 1 1 auto;
-    margin: 0;
-  }
-
-  input {
-    border-radius: $border-radius 0 0 $border-radius;
-    border-right: none;
-  }
-
-  .button {
-    border: none;
-    border-radius: 0 $border-radius $border-radius 0;
-    box-shadow: none;
-    padding: $base-padding;
-    width: auto;
   }
 }
 

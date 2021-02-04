@@ -230,7 +230,7 @@ button {
 }
 
 /* Reaction buttons @todo: move to own component */
-[data-reaction='vote'] {
+[data-reaction="vote"] {
   &.active {
     background-color: $brilliant-amaranth-500 !important;
     color: #fff !important;
@@ -241,16 +241,52 @@ button {
   }
 }
 
-[data-reaction='like'] {
+[data-reaction="like"] {
   &.active {
     background-color: #fff !important;
     color: $brilliant-amaranth-500 !important;
   }
 }
 
-[data-reaction='bookmark'] {
+[data-reaction="bookmark"] {
   &.active {
     background-color: #fff !important;
     color: $vivid-amber-500 !important;
+  }
+}
+
+// A basic button for use with icons and tablist-sub
+.button-basic {
+  border-radius: $border-radius;
+  color: $color-text;
+  cursor: pointer;
+  display: inline-block;
+  padding: $base-padding $base-padding * 2;
+  transition: background-color 0.15s ease-out;
+
+  &.button-small {
+    padding: $base-padding/2 $base-padding;
+  }
+
+  &:hover,
+  &:focus {
+    background-color: $grey-100;
+    box-shadow: none;
+    color: #000;
+    text-decoration: none;
+  }
+
+  &:active {
+    background-color: $grey-200;
+  }
+
+  &.active {
+    background-color: $ts-green-100;
+    color: $ts-green-800;
+  }
+
+  .icon {
+    bottom: -2px;
+    position: relative;
   }
 }

@@ -54,8 +54,8 @@
 }
 
 .flex {
-	align-items: center;
 	display: flex;
+	margin-top: $base-padding;
 
 	> * {
 		flex: 0 1 auto;
@@ -156,9 +156,32 @@ small,
 	white-space: nowrap !important;
 }
 
+// Wrap a table so it scrolls offscreen
+.scroll-container {
+	box-shadow: inset -7px 0 9px -7px rgba(0, 0, 0, 0.1);
+	margin-left: -$base-padding;
+	margin-right: -$base-padding;
+	overflow-x: auto;
+	overflow-y: hidden;
+	padding-left: $base-padding;
+	-webkit-overflow-scrolling: touch;
+
+	> div {
+		min-width: 100%;
+	}
+}
+
+/* Position an element in the top right corner with margin */
+.top-right {
+	position: absolute !important;
+	right: $base-padding/2;
+	top: $base-padding/2;
+}
+
 // For sticky sidebars. Only stick if you can fit
 @media (min-height: 300px) {
 	.sticky {
+		align-self: flex-start;
 		position: sticky;
 		top: 0;
 	}
@@ -182,7 +205,12 @@ small,
 	}
 
 	.hidden-medium-up {
-		display: none;
+		display: none !important;
+	}
+
+	.scroll-container {
+		box-shadow: none;
+		margin-right: 0;
 	}
 }
 

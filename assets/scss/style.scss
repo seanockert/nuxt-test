@@ -1,5 +1,5 @@
 /*!
-Site Name:      Nuxt test
+Site Name:      Nuxt test site
 Site URI:       
 Description:    
 Author:         Sean Ockert @seanockert
@@ -35,38 +35,26 @@ body {
 /* Main components  ---------------------- */
 
 @import 'components/button';
+@import 'components/breadcrumb';
+@import 'components/callout';
 @import 'components/card';
-@import 'components/dropdown';
 @import 'components/flex-video';
 @import 'components/form';
 @import 'components/icon';
 @import 'components/label';
 @import 'components/nav';
-@import 'components/search';
 @import 'components/section';
+@import 'components/scroll-container';
 @import 'components/tooltip';
 
-/*@import 'components/breadcrumb';
-
-@import 'components/button-social';
-@import 'components/callout';
-
+/*@import 'components/button-social';
 @import 'components/carousel';
 @import 'components/collapse';
 @import 'components/comment';
-
 @import 'components/filter';
-
-
-
 @import 'components/illustration';
-
-
-@import 'components/nav-vertical';
 @import 'components/pricing-plan';
 @import 'components/scroll-container';
-
-
 @import 'components/sidebar';
 @import 'components/tab';
 @import 'components/table';

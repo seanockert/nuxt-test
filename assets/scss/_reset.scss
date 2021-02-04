@@ -52,8 +52,11 @@ textarea {
   margin: 0;
 }
 
-body {
+html {
   font-family: sans-serif;
+}
+
+body {
   height: inherit;
   scroll-behavior: smooth;
   -ms-overflow-style: scrollbar;

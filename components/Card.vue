@@ -1,39 +1,45 @@
 <template>
 	<div :class="['card', 'type-' + content.type]" @click="gotoLink">
 		<figure class="card-img">
+			<span v-if="content.isFree" class="label label-primary">Free</span>
+			<span v-if="content.isNew" class="label label-secondary">New</span>
 			<span v-if="content.type === 'post'">
 				<div
-					v-for="topic in content.topics"
-					:key="topic.id"
-					:class="['label', 'topic-' + topic.slug]"
+					v-for="category in content.categories"
+					:key="category.id"
+					:class="['label', 'category-' + category.slug]"
 				>
-					{{ topic.name }}
+					{{ category.name }}
 				</div>
 			</span>
 
-			<img
-				v-if="content.image"
-				:src="content.image.url"
-				alt=""
-				height="300"
-				width="600"
-				loading="lazy"
-			/>
+			<nuxt-link :to="url" title="View this resource">
+				<img
+					v-if="content.media && content.media[0]"
+					:src="content.media[0].cdn"
+					alt=""
+					height="300"
+					width="600"
+					loading="lazy"
+				/>
+			</nuxt-link>
 		</figure>
 		<div class="card-content">
-			<h4>{{ content.type | formatSlug }}</h4>
+			<h4>{{ content.typeFormatted }}</h4>
 			<h3>
-				<nuxt-link :to="url" title="" class="line-clamp">{{ content.title }}</nuxt-link>
+				<nuxt-link :to="url" title="View this resource" class="line-clamp">{{
+					content.name
+				}}</nuxt-link>
 			</h3>
 			<small
 				v-if="content.type === 'post'"
 				class="card-meta"
 				rel="author"
-				:data-tooltip="content.date | simpleDate('dddd, MMM DD [at] h:mma')"
+				:data-tooltip="content.created | simpleDate('dddd, MMM DD [at] h:mma')"
 			>
 				Posted
-				<time :datetime="content.date | simpleDate('dddd, MMM DD [at] h:mma')">{{
-					content.date | relativeTime
+				<time :datetime="content.created | simpleDate('dddd, MMM DD [at] h:mma')">{{
+					content.created | relativeTime
 				}}</time>
 				by
 				{{ content.author.displayName }}
@@ -42,13 +48,13 @@
 			<p class="line-clamp">{{ content.excerpt }}</p>
 		</div>
 		<footer v-if="content.type !== 'post'">
-			<span
-				v-for="topic in content.topics"
-				:key="topic.id"
-				:class="['label', 'topic-' + topic.slug]"
+			<!--<span
+				v-for="category in content.categories"
+				:key="category.id"
+				:class="['label', 'category-' + category.slug]"
 			>
-				{{ topic.name }}
-			</span>
+				{{ category.name }}
+			</span>-->
 		</footer>
 	</div>
 </template>
@@ -85,7 +91,7 @@ export default {
 	},
 	filters: {
 		formatSlug(string) {
-			return string.replace('-', ' ').replace('post', 'blog');
+			return string ? string.replace('-', ' ').replace('post', 'blog') : string;
 		},
 		relativeTime(date) {
 			if (!date) return null;
@@ -151,7 +157,7 @@ figure {
 	}
 
 	.label {
-		background-color: rgba(255, 255, 255, 0.5);
+		//background-color: rgba(255, 255, 255, 0.5);
 		backdrop-filter: blur(4px);
 		margin-bottom: 0;
 		margin-right: 0;

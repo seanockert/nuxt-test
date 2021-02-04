@@ -1,125 +1,26 @@
 <template>
   <div>
     <!-- Free resources -->
-    <section class="section">
-      <header class="row">
-        <h2>Free Resources in {{ region }}</h2>
-      </header>
-
-      <ul class="row block-grid small-up-1 medium-up-4 large-up-4">
-        <template v-if="!freeResources">
-          <li>
-            <div class="card skeleton">
-              <div></div>
-              <h4></h4>
-              <h3></h3>
-              <p></p>
-            </div>
-          </li>
-          <li>
-            <div class="card skeleton">
-              <div></div>
-              <h4></h4>
-              <h3></h3>
-              <p></p>
-            </div>
-          </li>
-        </template>
-        <template v-else>
-          <li v-for="resource in freeResources" :key="resource.id">
-            <card :content="resource" :url="'/resources/' + resource.name" />
-          </li>
-        </template>
-      </ul>
-    </section>
+    <resources-list
+      :title="'Latest free resources in ' + region"
+      :resources="freeResources"
+      :error="freeResourcesError"
+    />
 
     <!-- Unit plans -->
-    <section class="section">
-      <header class="row">
-        <h2>Unit Plans in {{ region }}</h2>
-      </header>
-
-      <ul class="row block-grid small-up-1 medium-up-4 large-up-4">
-        <template v-if="!unitPlans">
-          <li>
-            <div class="card skeleton">
-              <div></div>
-              <h4></h4>
-              <h3></h3>
-              <p></p>
-            </div>
-          </li>
-          <li>
-            <div class="card skeleton">
-              <div></div>
-              <h4></h4>
-              <h3></h3>
-              <p></p>
-            </div>
-          </li>
-        </template>
-        <template v-else>
-          <li v-for="resource in unitPlans" :key="resource.id">
-            <card :content="resource" :url="'/resources/' + resource.name" />
-          </li>
-        </template>
-      </ul>
-    </section>
+    <resources-list
+      :title="'Unit Plans in ' + region"
+      :resources="unitPlans"
+      :error="unitPlansError"
+    />
 
     <!-- All resources -->
-    <section class="section">
-      <header class="row">
-        <div>
-          <h2>
-            Latest Resources in {{ region }}
-
-            <span v-if="resources">
-              (
-              <strong>{{
-                moreResources ? resources.length + moreResources.length : resources.length
-              }}</strong>
-              {{ 'resource' | pluralise(resources.length) }})
-            </span>
-          </h2>
-        </div>
-      </header>
-
-      <ul class="row block-grid small-up-1 medium-up-2 large-up-3">
-        <template v-if="!resources">
-          <li>
-            <div class="card skeleton">
-              <div></div>
-              <h4></h4>
-              <h3></h3>
-              <p></p>
-            </div>
-          </li>
-          <li>
-            <div class="card skeleton">
-              <div></div>
-              <h4></h4>
-              <h3></h3>
-              <p></p>
-            </div>
-          </li>
-        </template>
-        <template v-else>
-          <li v-for="resource in resources" :key="resource.id">
-            <card :content="resource" :url="'/resources/' + resource.name" />
-          </li>
-        </template>
-      </ul>
-      <p v-if="!moreResources" class="text-center" style="width:100%">
-        <button @click="loadMore(2)" class="button button-block">
-          Load 30 more
-        </button>
-      </p>
-      <ul v-else class="row block-grid small-up-1 medium-up-2 large-up-3">
-        <li v-for="resource in moreResources" :key="resource.id">
-          <card :content="resource" />
-        </li>
-      </ul>
-    </section>
+    <resources-list
+      :title="'Latest Resources in ' + region"
+      :resources="resources"
+      :loadMore="true"
+      :error="resourcesError"
+    />
   </div>
 </template>
 
@@ -134,80 +35,88 @@
  * @methods:
  */
 
-import Card from '~/components/Card.vue';
-import axios from 'axios';
-const apiResource = 'https://staging-api.teachstarter.com/v1/resource/';
-const types = ['teaching-resource', 'resource-pack'];
+import ResourcesList from './ResourcesList.vue';
+
+const types = 'teaching-resource'; //['teaching-resource', 'resource-pack'];
+const resourceCount = 30;
+const freeCount = 4;
+const unitCount = 4;
 
 export default {
   name: 'Resources',
   components: {
-    Card,
+    ResourcesList,
   },
   data() {
     return {
-      title: 'Resources',
-      moreResources: null,
+      title: 'Teaching Resources',
+      description: 'Teaching Resources, Printables, Games, Activities & Worksheets | Teach Starter',
     };
   },
-  async asyncData({ app, params }) {
+  async asyncData({ app, $axios }) {
+    let data = {
+      region: app.i18n ? app.i18n.t('name') : null,
+    };
+
+    // Indicate if this is loading client or serverside
     if (process.browser) {
       console.log('Client side load for ' + app.i18n.locale);
     }
+
     try {
-      // Proxy: '/api/v1/resource/'
-      let resources = await axios.get(apiResource, {
-        params: { type: types, perPage: 30 },
-        //headers: { 'Country-Code': app.i18n.locale },
-      });
-
-      let freeResources = await axios.get(
-        'https://staging-api.teachstarter.com/v1/dashboard/teaching-resource/free',
-        {
-          params: { type: types, perPage: 4 },
-          //headers: { 'Country-Code': app.i18n.locale },
-        }
-      );
-
-      let unitPlans = await axios.get(apiResource, {
-        params: { type: ['unit-plan'], perPage: 4 },
-        //headers: { 'Country-Code': app.i18n.locale },
-      });
-
-      return {
-        resources: resources.data.list,
-        freeResources: freeResources ? freeResources.data.list : null,
-        unitPlans: unitPlans ? unitPlans.data.list : null,
-        region: app.i18n ? app.i18n.t('name') : null,
+      const paramsResources = {
+        type: types,
+        perPage: resourceCount,
+        orderBy: 'viewCount',
       };
+      const resources = await $axios.get($axios.defaults.baseURL + '/public/v2/resource', {
+        params: paramsResources,
+        headers: { 'Country-Code': app.i18n.locale },
+      });
+
+      data.resources = resources.data.list;
+      data.resourcesError = null;
     } catch (error) {
-      console.log(error);
+      data.resourcesError = error;
     }
+
+    try {
+      const freeResources = await $axios.get($axios.defaults.baseURL + '/public/v2/resource', {
+        params: { type: types, perPage: freeCount, free: 1 },
+        headers: { 'Country-Code': app.i18n.locale },
+      });
+
+      data.freeResources = freeResources.data.list;
+      data.freeResourcesError = null;
+    } catch (error) {
+      data.freeResourcesError = error;
+    }
+
+    try {
+      const unitPlans = await $axios.get($axios.defaults.baseURL + '/public/v2/resource', {
+        params: { type: 'unit-plan', perPage: unitCount },
+        headers: { 'Country-Code': app.i18n.locale },
+      });
+
+      data.unitPlans = unitPlans.data.list;
+      data.unitPlansError = null;
+    } catch (error) {
+      data.unitPlansError = error;
+    }
+
+    return data;
   },
   head() {
     return {
       title: this.title,
       meta: [
-        { hid: 'title', name: 'title', content: 'Resources' },
-        { hid: 'description', name: 'description', content: 'Description' },
+        { hid: 'title', name: 'title', content: this.title },
+        { hid: 'description', name: 'description', content: this.description },
+        { hid: 'og-site_name', property: 'og:site_name', content: 'Teach Starter' },
+        { hid: 'og-type', property: 'og:type', content: 'Website' },
+        { hid: 'og-fb-pages', property: 'og:fb-pages', content: '265997220134314' },
       ],
     };
-  },
-  methods: {
-    async loadMore(page = 1) {
-      try {
-        let response = await axios.get(apiResource, { params: { perPage: 30, page: page } });
-        const { data: { list = [] } = {} } = response;
-        this.moreResources = list;
-      } catch (error) {
-        console.log(error);
-      }
-    },
-  },
-  filters: {
-    pluralise(string, count = 1) {
-      return count != 1 ? (string += 's') : string;
-    },
   },
 };
 </script>
