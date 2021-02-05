@@ -15,6 +15,7 @@
 
 export default {
   name: 'Download',
+  layout: 'blank',
   async asyncData({ params, store, $axios }) {
     console.log('jere');
     console.log(params);

@@ -9,7 +9,7 @@
 </template>
 
 <script>
-/* MainHeader
+/* Default layout
  *
  * @parent:
  * @requests:

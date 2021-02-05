@@ -27,7 +27,11 @@
             <div class="pull-right">
               <ul class="inline-list">
                 <li>
-                  <button @click="like" class="button button-link">
+                  <button
+                    @click="like"
+                    :class="{ button: true, 'button-link': true, active: resource.like.checked }"
+                    title="Like this resource"
+                  >
                     <svg class="icon" role="img" aria-hidden="true">
                       <use xlink:href="~/assets/images/fa-icons.svg#heart-empty"></use>
                     </svg>
@@ -35,7 +39,15 @@
                   </button>
                 </li>
                 <li>
-                  <button @click="bookmark" class="button button-link">
+                  <button
+                    @click="bookmark"
+                    :class="{
+                      button: true,
+                      'button-link': true,
+                      active: resource.bookmark.checked,
+                    }"
+                    title="Bookmark this resource"
+                  >
                     <svg class="icon" role="img" aria-hidden="true">
                       <use xlink:href="~/assets/images/fa-icons.svg#bookmark-empty"></use>
                     </svg>
@@ -43,12 +55,12 @@
                   </button>
                 </li>
                 <li>
-                  <button @click="comment" class="button button-link">
+                  <a href="#comments" class="button button-link" title="Scroll to comments">
                     <svg class="icon" role="img" aria-hidden="true">
                       <use xlink:href="~/assets/images/fa-icons.svg#comment"></use>
                     </svg>
                     {{ resource.commented.count }}
-                  </button>
+                  </a>
                 </li>
               </ul>
             </div>
@@ -266,17 +278,28 @@ export default {
   },
   nuxtI18n: false,
   methods: {
-    like() {
-      alert('Like!');
-      console.log('like');
+    async like() {
+      try {
+        const response = await this.$store.dispatch('likeResource', {
+          id: this.resource.id,
+          count: this.resource.like.count,
+          isActive: this.resource.like.checked,
+        });
+
+        //this.resource.like = response;
+        this.resource.like = {
+          count: !this.resource.like.checked
+            ? this.resource.like.count++
+            : this.resource.like.count--,
+          checked: !this.resource.like.checked,
+        };
+      } catch (error) {
+        console.log(error);
+      }
     },
     bookmark() {
       alert('Bookmark!');
       console.log('bookmark');
-    },
-    comment() {
-      alert('Comment!');
-      console.log('comment');
     },
     sanitiseMedia(media) {
       // This stuff should be fixed on server side
@@ -285,17 +308,6 @@ export default {
           return item;
         }
       });
-      /*
-      const updateUrls = extractPreviews.map(item => {
-        if (item.filename.substring(0, 37) == 'https://staging-api.teachstarter.com/fileserver') {
-          item.cdn =
-            'https://www.teachstarter.com/wp-content/uploads' +
-            item.filename.substring(37, item.filename.length);
-        }
-
-        return item;
-      });
-      */
 
       return extractPreviews.map(item => {
         return {

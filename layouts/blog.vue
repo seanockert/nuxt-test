@@ -12,7 +12,7 @@
 </template>
 
 <script>
-/* MainHeader
+/* Blog layout
  *
  * @parent:
  * @requests:
