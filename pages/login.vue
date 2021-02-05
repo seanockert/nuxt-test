@@ -56,21 +56,36 @@ export default {
       username: '',
       password: '',
       error: null,
+      redirect: '/',
+      title: 'Login',
     };
   },
+  head() {
+    return {
+      title: this.title,
+      meta: [
+        { hid: 'title', name: 'title', content: this.title },
+        { hid: 'description', name: 'description', content: 'Login to your Teach Starter account' },
+      ],
+    };
+  },
+  nuxtI18n: false,
   methods: {
     async login() {
       try {
-        await this.$auth.loginWith('local', {
+        const response = await this.$auth.loginWith('local', {
           data: {
             username: this.username,
             password: this.password,
           },
         });
+        console.log(response);
+        //this.$auth.setUser(response.data);
 
-        this.$router.push('/');
-      } catch (e) {
-        this.error = e.response.data.message;
+        this.$router.push(this.redirect);
+      } catch (error) {
+        console.log('error', error);
+        this.error = error;
       }
     },
   },

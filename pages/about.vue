@@ -125,7 +125,7 @@
  */
 
 export default {
-  name: 'About',
+  name: 'about',
   data() {
     return {
       title: 'About Teach Starter',
@@ -135,8 +135,13 @@ export default {
     return {
       title: this.title,
       meta: [
-        { hid: 'title', name: 'title', content: 'About Teach Starter' },
-        { hid: 'description', name: 'description', content: 'My custom description' },
+        { hid: 'title', name: 'title', content: this.title },
+        {
+          hid: 'description',
+          name: 'description',
+          content:
+            'Teach Starter provides you with unique, bright and engaging teaching resources to help your students or children succeed.',
+        },
       ],
     };
   },

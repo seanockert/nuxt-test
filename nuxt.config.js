@@ -147,29 +147,44 @@ export default {
   proxy: {
     '/api/': process.env.API_URL || 'https://staging-api.teachstarter.com',
   },
-  /*auth: {
+  auth: {
     redirect: {
       login: '/login',
-      logout: '/logout',
+      logout: '/login',
       home: '/',
     },
     strategies: {
       local: {
         endpoints: {
           login: {
-            url: process.env.API_URL + '/v1/user/login/',
+            url: process.env.API_URL
+              ? process.env.API_URL + '/v1/user/login/'
+              : 'https://staging-api.teachstarter.com/v1/user/login/',
             method: 'post',
             propertyName: 'data.token',
           },
-          user: { url: '/', method: 'get', propertyName: 'data' },
-          logout: false,
+          user: {
+            url: process.env.API_URL
+              ? process.env.API_URL + '/v1/user/info-nuxt/'
+              : 'https://staging-api.teachstarter.com/v1/user/info-nuxt/',
+            method: 'get',
+            propertyName: 'user',
+          },
+          logout: {
+            url: process.env.API_URL
+              ? process.env.API_URL + '/v1/user/logout/'
+              : 'https://staging-api.teachstarter.com/v1/user/logout/',
+            method: 'get',
+          },
         },
-        tokenType: '',
-        tokenName: 'x-auth',
-        autoFetchUser: false,
+        tokenRequired: true,
+        tokenType: 'bearer',
+        tokenName: 'Authorization',
+        //globalToken: true,
+        //autoFetchUser: false,
       },
     },
-  },*/
+  },
   /*
    ** Build configuration
    */

@@ -226,11 +226,15 @@ button {
     &:last-of-type {
       border-radius: 0 $border-radius $border-radius 0;
     }
+
+    &.button-single {
+      border-radius: $border-radius;
+    }
   }
 }
 
 /* Reaction buttons @todo: move to own component */
-[data-reaction="vote"] {
+[data-reaction='vote'] {
   &.active {
     background-color: $brilliant-amaranth-500 !important;
     color: #fff !important;
@@ -241,14 +245,14 @@ button {
   }
 }
 
-[data-reaction="like"] {
+[data-reaction='like'] {
   &.active {
     background-color: #fff !important;
     color: $brilliant-amaranth-500 !important;
   }
 }
 
-[data-reaction="bookmark"] {
+[data-reaction='bookmark'] {
   &.active {
     background-color: #fff !important;
     color: $vivid-amber-500 !important;

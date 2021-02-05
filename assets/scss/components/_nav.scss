@@ -42,6 +42,10 @@ a.skip-link {
   > * {
     padding: 0 $base-padding / 2;
   }
+
+  .nuxt-link-active {
+    font-weight: bold;
+  }
 }
 
 .main-nav-logo {
@@ -58,6 +62,7 @@ a.skip-link {
 }
 
 .main-nav-links {
+  align-items: center;
   flex: 1 1 0px;
   display: none;
   flex-wrap: nowrap;

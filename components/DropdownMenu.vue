@@ -1,6 +1,20 @@
 <template>
   <div :data-position="position" :class="{ dropdown: true, show: isOpen }">
+    <a
+      v-if="url"
+      :href="url"
+      :class="['dropdown-toggle', type]"
+      aria-haspopup="true"
+      :aria-expanded="isOpen"
+      ref="dropdown-toggle"
+      @click.prevent="toggleOpen()"
+    >
+      <template v-if="$slots.label">
+        <slot name="label"></slot>
+      </template>
+    </a>
     <button
+      v-else
       :class="['dropdown-toggle', type]"
       aria-haspopup="true"
       :aria-expanded="isOpen"
@@ -39,24 +53,30 @@ export default {
       type: String,
       default: 'button',
     },
+    url: {
+      type: String,
+    },
   },
   data() {
     return {
       isOpen: false,
     };
   },
-  created() {
-    if (process.browser) {
-      let self = this;
-      window.addEventListener('click', function(e) {
-        // close dropdown when clicked outside
-        if (self.$el.children[0] !== e.target) {
-          self.onClose();
-        }
-      });
-    }
+  mounted() {
+    //window.addEventListener('click', this.close);
+  },
+  beforeDestroy() {
+    //window.removeEventListener('click', this.close);
   },
   methods: {
+    close(e) {
+      if (process.browser) {
+        // close dropdown when clicked outside
+        if (this.$el.children[0] !== e.target) {
+          this.onClose();
+        }
+      }
+    },
     toggleOpen() {
       this.isOpen = !this.isOpen;
     },

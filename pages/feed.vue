@@ -29,6 +29,7 @@ import HomeFeed from '~/components/HomeFeed.vue';
 
 export default {
   name: 'Homefeed',
+  middleware: 'auth',
   components: { HomeFeed },
   data() {
     return {

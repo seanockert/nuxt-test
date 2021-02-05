@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div v-if="error" class="callout">{{ error }}</div>
+    <div v-if="resourceError" class="callout">{{ resourceError }}</div>
     <div v-if="!resource" class="section skeleton">
       <h3></h3>
       <h2></h2>
@@ -13,7 +13,7 @@
         <div class="columns small-12 medium-8 large-7">
           <header>
             <h2>
-              <nuxt-link :to="localePath('/resources')" title="">
+              <nuxt-link :to="localePath('/teaching-resources')" title="">
                 &larr;
               </nuxt-link>
               {{ resource.typeFormatted }}
@@ -22,30 +22,7 @@
           </header>
 
           <section class="section section-actions flex">
-            <div class="button-group">
-              <button class="button button-primary">Download</button>
-              <button
-                class="button button-primary button-dropdown dropdown-toggle"
-                aria-haspopup="true"
-                aria-expanded="false"
-              >
-                &#x25BE;
-              </button>
-              <!--<ul class="dropdown-content link-list">
-                <li><a href="">Item 1</a></li>
-                <li><a href="">Item 2</a></li>
-              </ul>
-
-              <dropdown-menu type="button button-primary">
-                <template v-slot:label>
-                  &#x25BE;
-                </template>
-                <ul class="link-list">
-                  <li>Item 1</li>
-                  <li>Item 2</li>
-                </ul>
-              </dropdown-menu>-->
-            </div>
+            <download-button :id="8958" :files="resource.files" />
 
             <div class="pull-right">
               <ul class="inline-list">
@@ -130,6 +107,15 @@
               </li>
             </ul>
           </section>
+
+          <section class="section section-categories">
+            <h3>Related</h3>
+            <ul v-for="resource in related" :key="resource.id">
+              <li>
+                <card :content="resource" :url="'/teaching-resources/' + resource.id" />
+              </li>
+            </ul>
+          </section>
         </div>
 
         <aside class="columns small-12 medium-4 large-5">
@@ -155,7 +141,10 @@
         <div class="row">
           <div class="columns small-12 medium-6 large-6">
             <h2>Comments</h2>
-            ...
+            <div v-if="commentsError" class="callout">{{ commentsError }}</div>
+            <ul v-else class="no-list">
+              <comment v-for="comment in comments" :key="comment.id" :comment="comment" />
+            </ul>
           </div>
         </div>
       </section>
@@ -174,11 +163,17 @@
  * @methods:
  */
 
+import DownloadButton from '~/components/DownloadButton.vue';
 import DropdownMenu from '~/components/DropdownMenu.vue';
+import Card from '~/components/Card.vue';
+import Comment from '~/components/Comment.vue';
 
 export default {
   name: 'Resource',
   components: {
+    Card,
+    Comment,
+    DownloadButton,
     DropdownMenu,
   },
   data() {
@@ -187,25 +182,58 @@ export default {
     };
   },
   async asyncData({ params, store, payload, $axios }) {
-    // Speeds up route generation - SSG only
-    if (payload) return { resource: payload };
+    const data = {
+      resource: {},
+      comments: [],
+      related: [],
+      resourceError: null,
+      commentsError: null,
+      relatedError: null,
+      title: 'Resource',
+      description: 'A teaching resource',
+      featuredImage: '',
+    };
+
+    // From resource: https://www.teachstarter.com/au/teaching-resource/alphabet-handwriting-sheets-individual/
+    const testId = 8958;
 
     try {
-      let resource = await $axios.$get($axios.defaults.baseURL + '/public/v2/resource', {
+      const resource = await $axios.$get($axios.defaults.baseURL + '/public/v2/resource', {
         params: { id: parseInt(params.slug) },
       });
 
-      return {
-        resource: resource,
-        title: resource.name,
-        description: resource.excerpt,
-        image: resource.media && resource.media[0] ? resource.media[0].cdn : '',
-        error: null,
-      };
+      data.resource = resource;
+      data.title = resource.name;
+      data.description = resource.excerpt;
+      data.featuredImage = resource.media && resource.media[0] ? resource.media[0].cdn : '';
     } catch (error) {
       console.log(error);
-      return { error: error };
+      data.resourceError = error;
     }
+
+    try {
+      const comments = await $axios.$get($axios.defaults.baseURL + '/v1/comment', {
+        params: { id: testId },
+      });
+
+      data.comments = comments.list;
+    } catch (error) {
+      console.log(error);
+      data.commentsError = error;
+    }
+
+    try {
+      const related = await $axios.$get($axios.defaults.baseURL + '/v1/resource/related', {
+        params: { id: testId },
+      });
+
+      data.related = related.list;
+    } catch (error) {
+      console.log(error);
+      data.relatedError = error;
+    }
+
+    return data;
   },
   validate({ params }) {
     return true;
@@ -225,7 +253,7 @@ export default {
         { hid: 'description', name: 'description', content: this.description },
         { hid: 'og-title', property: 'og:title', content: this.title },
         { hid: 'og-description', property: 'og:description', content: this.description },
-        { hid: 'og-image', property: 'og:image', content: this.image || '' },
+        { hid: 'og-image', property: 'og:image', content: this.featuredImage || '' },
         { hid: 'og-image-width', property: 'og:image:width', content: '600' },
         { hid: 'og-image-height', property: 'og:image:height', content: '1200' },
         { hid: 'og-image-height', property: 'og:image:height', content: '630' },

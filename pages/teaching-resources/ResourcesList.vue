@@ -1,8 +1,15 @@
 <template>
   <section class="section">
     <header v-if="title" class="row">
-      <h2>{{ title }}</h2>
-      <p>{{ subtitle }}</p>
+      <div>
+        <h2>{{ title }}</h2>
+        <p>{{ subtitle }}</p>
+        <p>
+          <small v-if="size > 0" class="text-mute"
+            >{{ size | numberWithCommas }} {{ 'resource' | pluralise(size) }}</small
+          >
+        </p>
+      </div>
     </header>
 
     <div class="row">
@@ -29,7 +36,7 @@
 
       <ul v-else-if="resources.length > 0" class="row block-grid small-up-1 medium-up-4 large-up-4">
         <li v-for="resource in resources" :key="resource.id">
-          <card :content="resource" :url="'/resources/' + resource.id" />
+          <card :content="resource" :url="'/teaching-resources/' + resource.id" />
         </li>
       </ul>
 
@@ -37,16 +44,19 @@
 
       <template v-if="loadMore">
         <div v-if="moreResourcesError" class="callout">{{ moreResourcesError }}</div>
-        <div v-else-if="!moreResources" class="text-center">
-          <button @click="loadResources(2)" class="button button-block">
-            Load more
-          </button>
-        </div>
-        <ul v-else class="row block-grid small-up-1 medium-up-2 large-up-3">
+        <ul
+          v-else-if="moreResources.length > 0"
+          class="row block-grid small-up-1 medium-up-4 large-up-4"
+        >
           <li v-for="resource in moreResources" :key="resource.id">
             <card :content="resource" />
           </li>
         </ul>
+        <div class="text-center">
+          <button @click="loadResources(page)" class="button button-block">
+            Load more
+          </button>
+        </div>
       </template>
     </div>
   </section>
@@ -58,9 +68,9 @@
  * @parent: /resources/index
  * @requests:
  * @events:
- * @props:
- * @components:
- * @methods:
+ * @props: String error, Boolean loadMore, Object params, Array resources
+ * @components: Card
+ * @methods: loadResources
  */
 
 import Card from '~/components/Card.vue';
@@ -76,19 +86,26 @@ export default {
     params: {
       type: Object,
       default() {
-        return { types: 'teaching-resource', perPage: 30 };
+        return {
+          types: 'teaching-resource',
+          perPage: 30,
+        };
       },
     },
     resources: {
       type: Array,
+    },
+    size: {
+      type: Number,
     },
     title: { type: String },
     subtitle: { type: String },
   },
   data() {
     return {
-      moreResources: null,
+      moreResources: [],
       moreResourcesError: null,
+      page: 2,
     };
   },
   methods: {
@@ -99,17 +116,19 @@ export default {
       try {
         let response = await this.$axios.get(this.$axios.defaults.baseURL + '/public/v2/resource', {
           params: params,
-          headers: { 'Country-Code': this.i18n.locale },
         });
         const { data: { list = [] } = {} } = response;
         this.moreResources = list;
+        this.page++; // Increment page
       } catch (error) {
-        console.log(error);
         this.moreResourcesError = error;
       }
     },
   },
   filters: {
+    numberWithCommas(number) {
+      return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+    },
     pluralise(string, count = 1) {
       return count != 1 ? (string += 's') : string;
     },

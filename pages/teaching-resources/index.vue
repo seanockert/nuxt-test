@@ -3,23 +3,27 @@
     <!-- Free resources -->
     <resources-list
       :title="'Latest free resources in ' + region"
-      :resources="freeResources"
-      :error="freeResourcesError"
+      :resources="free.resources"
+      :size="free.size"
+      :error="free.error"
     />
 
     <!-- Unit plans -->
     <resources-list
       :title="'Unit Plans in ' + region"
-      :resources="unitPlans"
-      :error="unitPlansError"
+      :resources="unitPlans.resources"
+      :size="unitPlans.size"
+      :error="unitPlans.error"
     />
 
     <!-- All resources -->
     <resources-list
       :title="'Latest Resources in ' + region"
-      :resources="resources"
+      :resources="latest.resources"
+      :size="latest.size"
+      :error="latest.error"
+      :params="latest.params"
       :loadMore="true"
-      :error="resourcesError"
     />
   </div>
 </template>
@@ -38,9 +42,6 @@
 import ResourcesList from './ResourcesList.vue';
 
 const types = 'teaching-resource'; //['teaching-resource', 'resource-pack'];
-const resourceCount = 30;
-const freeCount = 4;
-const unitCount = 4;
 
 export default {
   name: 'Resources',
@@ -54,7 +55,37 @@ export default {
     };
   },
   async asyncData({ app, $axios }) {
-    let data = {
+    const data = {
+      latest: {
+        resources: [],
+        params: {
+          country: app.i18n.locale,
+          type: types,
+          perPage: 32,
+          orderBy: 'viewCount',
+        },
+        size: 0,
+        error: null,
+      },
+      free: {
+        params: {
+          country: app.i18n.locale,
+          type: types,
+          perPage: 4,
+          free: 1,
+        },
+        size: 0,
+        error: null,
+      },
+      unitPlans: {
+        params: {
+          country: app.i18n.locale,
+          type: 'unit-plan',
+          perPage: 4,
+        },
+        size: 0,
+        error: null,
+      },
       region: app.i18n ? app.i18n.t('name') : null,
     };
 
@@ -64,45 +95,36 @@ export default {
     }
 
     try {
-      const paramsResources = {
-        type: types,
-        perPage: resourceCount,
-        orderBy: 'viewCount',
-      };
-
-      const resources = await $axios.get($axios.defaults.baseURL + '/public/v2/resource', {
-        params: paramsResources,
-        headers: { 'Country-Code': app.i18n.locale },
+      const latest = await $axios.get($axios.defaults.baseURL + '/public/v2/resource', {
+        params: data.latest.params,
       });
-      console.log('ra', resources);
-      data.resources = resources.data.list;
-      data.resourcesError = null;
+
+      data.latest.resources = latest.data.list;
+      data.latest.size = latest.data.size;
     } catch (error) {
-      data.resourcesError = error;
+      data.latest.error = error;
     }
 
     try {
-      const freeResources = await $axios.get($axios.defaults.baseURL + '/public/v2/resource', {
-        params: { type: types, perPage: freeCount, free: 1 },
-        headers: { 'Country-Code': app.i18n.locale },
+      const free = await $axios.get($axios.defaults.baseURL + '/public/v2/resource', {
+        params: data.free.params,
       });
 
-      data.freeResources = freeResources.data.list;
-      data.freeResourcesError = null;
+      data.free.resources = free.data.list;
+      data.free.size = free.data.size;
     } catch (error) {
-      data.freeResourcesError = error;
+      data.free.error = error;
     }
 
     try {
       const unitPlans = await $axios.get($axios.defaults.baseURL + '/public/v2/resource', {
-        params: { type: 'unit-plan', perPage: unitCount },
-        headers: { 'Country-Code': app.i18n.locale },
+        params: data.unitPlans.params,
       });
 
-      data.unitPlans = unitPlans.data.list;
-      data.unitPlansError = null;
+      data.unitPlans.resources = unitPlans.data.list;
+      data.unitPlans.size = unitPlans.data.size;
     } catch (error) {
-      data.unitPlansError = error;
+      data.unitPlans.error = error;
     }
 
     return data;

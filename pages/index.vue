@@ -10,11 +10,12 @@
             for primary school teachers and their students.
           </p>
           <p>
-            <nuxt-link :to="localePath('/resources')" title="" class="button button-primary"
+            <nuxt-link
+              :to="localePath('/teaching-resources/')"
+              title=""
+              class="button button-primary"
               >View some resources</nuxt-link
             >
-
-            <nuxt-link to="/feed" title="" class="button button-outlined">Or homefeed</nuxt-link>
           </p>
         </div>
 
@@ -50,8 +51,13 @@ export default {
     return {
       title: this.title,
       meta: [
-        { hid: 'title', name: 'title', content: 'Teach Starter home' },
-        { hid: 'description', name: 'description', content: 'My custom description' },
+        { hid: 'title', name: 'title', content: 'Teach Starter' },
+        {
+          hid: 'description',
+          name: 'description',
+          content:
+            'Teach Starter offers a range of time-saving, educational teaching resources for primary school teachers. Download unit and lesson plans, educational posters, classroom games and activities, worksheets and more!',
+        },
       ],
     };
   },
