@@ -117,7 +117,10 @@ export default {
   name: 'BlogPost',
   data() {
     return {
-      title: null,
+      title: 'Blog post',
+      slug: this.params,
+      loading: true,
+      error: null,
     };
   },
   layout: 'blog',
@@ -139,7 +142,7 @@ export default {
 
       return { post: list[0], content: content.data };
     } catch (error) {
-      console.log(error);
+      this.error = error.response ? error.response.data.error : error;
     }
   },
   validate({ params }) {
@@ -147,13 +150,6 @@ export default {
   },
   created() {
     dayjs.extend(relativeTime);
-  },
-  data() {
-    return {
-      title: 'Blog post',
-      slug: this.params,
-      loading: true,
-    };
   },
   head() {
     return {

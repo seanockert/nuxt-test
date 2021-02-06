@@ -12,7 +12,15 @@ export const actions = {
 		}
 	},
 	likeResource({ commit }, params) {
-		return '';
+		if (params.checked) {
+			params.count--;
+		} else {
+			params.count++;
+		}
+
+		params.checked = !params.checked;
+
+		return params;
 
 		/*
 		try {
@@ -26,10 +34,15 @@ export const actions = {
 		*/
 	},
 	bookmarkResource({ commit }, params) {
-		return {
-			count: params.isActive ? params.count-- : params.count++,
-			checked: !params.isActive,
-		};
+		if (params.checked) {
+			params.count--;
+		} else {
+			params.count++;
+		}
+
+		params.checked = !params.checked;
+
+		return params;
 	},
 };
 

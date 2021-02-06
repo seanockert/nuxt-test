@@ -121,7 +121,7 @@
           </section>
 
           <section class="section section-categories">
-            <h3>Related</h3>
+            <h3>Related resources</h3>
             <ul v-for="resource in related" :key="resource.id">
               <li>
                 <card :content="resource" :url="'/teaching-resources/' + resource.id" />
@@ -153,6 +153,8 @@
         <div class="row">
           <div class="columns small-12 medium-6 large-6">
             <h2>Comments</h2>
+            <comment-form :id="8958" />
+
             <div v-if="commentsError" class="callout">{{ commentsError }}</div>
             <ul v-else class="no-list">
               <comment v-for="comment in comments" :key="comment.id" :comment="comment" />
@@ -179,12 +181,14 @@ import DownloadButton from '~/components/DownloadButton.vue';
 import DropdownMenu from '~/components/DropdownMenu.vue';
 import Card from '~/components/Card.vue';
 import Comment from '~/components/Comment.vue';
+import CommentForm from '~/components/CommentForm.vue';
 
 export default {
   name: 'Resource',
   components: {
     Card,
     Comment,
+    CommentForm,
     DownloadButton,
     DropdownMenu,
   },
@@ -219,8 +223,7 @@ export default {
       data.description = resource.excerpt;
       data.featuredImage = resource.media && resource.media[0] ? resource.media[0].cdn : '';
     } catch (error) {
-      console.log(error);
-      data.resourceError = error;
+      data.resourceError = error.response ? error.response.data.error : error;
     }
 
     try {
@@ -230,8 +233,7 @@ export default {
 
       data.comments = comments.list;
     } catch (error) {
-      console.log(error);
-      data.commentsError = error;
+      data.commentsError = error.response ? error.response.data.error : error;
     }
 
     try {
@@ -241,8 +243,7 @@ export default {
 
       data.related = related.list;
     } catch (error) {
-      console.log(error);
-      data.relatedError = error;
+      data.relatedError = error.response ? error.response.data.error : error;
     }
 
     return data;
@@ -283,23 +284,24 @@ export default {
         const response = await this.$store.dispatch('likeResource', {
           id: this.resource.id,
           count: this.resource.like.count,
-          isActive: this.resource.like.checked,
+          checked: this.resource.like.checked,
         });
-
-        //this.resource.like = response;
-        this.resource.like = {
-          count: !this.resource.like.checked
-            ? this.resource.like.count++
-            : this.resource.like.count--,
-          checked: !this.resource.like.checked,
-        };
+        this.resource.like = response;
       } catch (error) {
-        console.log(error);
+        error.response ? error.response.data.error : error;
       }
     },
-    bookmark() {
-      alert('Bookmark!');
-      console.log('bookmark');
+    async bookmark() {
+      try {
+        const response = await this.$store.dispatch('bookmarkResource', {
+          id: this.resource.id,
+          count: this.resource.bookmark.count,
+          checked: this.resource.bookmark.checked,
+        });
+        this.resource.bookmark = response;
+      } catch (error) {
+        error.response ? error.response.data.error : error;
+      }
     },
     sanitiseMedia(media) {
       // This stuff should be fixed on server side

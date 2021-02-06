@@ -121,7 +121,7 @@ export default {
         this.moreResources = list;
         this.page++; // Increment page
       } catch (error) {
-        this.moreResourcesError = error;
+        this.moreResourcesError = error.response ? error.response.data.error : error;
       }
     },
   },

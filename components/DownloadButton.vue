@@ -7,11 +7,11 @@
 			v-if="isAuthenticated && id"
 		>
 			<input type="hidden" name="id" :value="id" />
-			<button class="button button-primary button-single">
+			<button class="button button-primary button-single" :disabled="downloading">
 				<svg class="icon icon-small" role="img" aria-hidden="true" aria-label="Download">
 					<use xlink:href="~/assets/images/fa-icons.svg#download"></use>
 				</svg>
-				Download
+				<template v-if="downloading">Downloading...</template><template v-else>Download</template>
 			</button>
 			<template v-if="files && files.length > 0">
 				<dropdown-menu type="button button-primary">
@@ -57,26 +57,35 @@ export default {
 		id: { type: Number, default: null },
 		files: { type: Array },
 	},
+	data() {
+		return {
+			downloading: false,
+			error: null,
+		};
+	},
 	components: {
 		DropdownMenu,
 	},
 	computed: {
-		...mapGetters(['isAuthenticated', 'loggedInUser']),
+		...mapGetters(['isAuthenticated']),
 	},
 	methods: {
 		async download() {
+			this.downloading = true;
+
 			try {
 				const resource = await this.$axios.$get(this.$axios.defaults.baseURL + '/v1/file', {
 					params: { id: this.id },
 				});
 
+				// Download the returned file link
 				if (resource.url) {
 					location.href = resource.url;
 				}
 
 				console.log('resource', resource);
 			} catch (error) {
-				console.log(error);
+				this.error = error.response ? error.response.data.error : error;
 			}
 		},
 	},

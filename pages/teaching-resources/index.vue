@@ -102,7 +102,7 @@ export default {
       data.latest.resources = latest.data.list;
       data.latest.size = latest.data.size;
     } catch (error) {
-      data.latest.error = error;
+      data.latest.error = error.response ? error.response.data.error : error;
     }
 
     try {
@@ -113,7 +113,7 @@ export default {
       data.free.resources = free.data.list;
       data.free.size = free.data.size;
     } catch (error) {
-      data.free.error = error;
+      data.free.error = error.response ? error.response.data.error : error;
     }
 
     try {
@@ -124,7 +124,7 @@ export default {
       data.unitPlans.resources = unitPlans.data.list;
       data.unitPlans.size = unitPlans.data.size;
     } catch (error) {
-      data.unitPlans.error = error;
+      data.unitPlans.error = error.response ? error.response.data.error : error;
     }
 
     return data;

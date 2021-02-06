@@ -101,6 +101,7 @@ export default {
 		return {
 			feed: null,
 			loading: false,
+			error: null,
 		};
 	},
 	created() {
@@ -119,7 +120,7 @@ export default {
 
 				document.title = this.feed.length + ' new items | ' + document.title;
 			} catch (error) {
-				console.log(error);
+				this.error = error.response ? error.response.data.error : error;
 			}
 		},
 		async populateData() {
@@ -176,7 +177,7 @@ export default {
 			try {
 				let response = await axios.post(feedEndpoint, data);
 			} catch (error) {
-				console.log(error);
+				this.error = error.response ? error.response.data.error : error;
 			}
 		},
 	},

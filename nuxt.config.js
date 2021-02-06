@@ -1,4 +1,6 @@
 import axios from 'axios';
+const API_URL = process.env.API_URL || 'https://staging-api.teachstarter.com';
+
 export default {
   ssr: true,
   // If you provide a version, it will be stored inside cache.
@@ -115,11 +117,8 @@ export default {
    ** See https://axios.nuxtjs.org/options
    */
   axios: {
-    proxy: true,
-    baseURL: process.env.API_URL || 'https://staging-api.teachstarter.com',
-    /* Unused - not using global Axios */
-    /*baseURL: 'https://staging-api.teachstarter.com',
-    credentials: false,
+    baseURL: API_URL,
+    /*proxy: true,
     debug: true,
     retry: {
       retries: 3,
@@ -136,16 +135,16 @@ export default {
   },
   publicRuntimeConfig: {
     axios: {
-      browserBaseURL: process.env.API_URL || 'https://staging-api.teachstarter.com',
+      browserBaseURL: API_URL,
     },
   },
   privateRuntimeConfig: {
     axios: {
-      baseURL: process.env.API_URL || 'https://staging-api.teachstarter.com',
+      baseURL: API_URL,
     },
   },
   proxy: {
-    '/api/': process.env.API_URL || 'https://staging-api.teachstarter.com',
+    '/api/': API_URL,
   },
   auth: {
     redirect: {
@@ -157,23 +156,20 @@ export default {
       local: {
         endpoints: {
           login: {
-            url: process.env.API_URL
-              ? process.env.API_URL + '/v1/user/login/'
-              : 'https://staging-api.teachstarter.com/v1/user/login/',
+            url: API_URL + '/v1/user/login-nuxt/',
             method: 'post',
             propertyName: 'data.token',
           },
+          //user: false,
           user: {
             url: process.env.API_URL
               ? process.env.API_URL + '/v1/user/info-nuxt/'
-              : 'https://staging-api.teachstarter.com/v1/user/info-nuxt/',
+              : API_URL + '/v1/user/info-nuxt/',
             method: 'get',
             propertyName: 'user',
           },
           logout: {
-            url: process.env.API_URL
-              ? process.env.API_URL + '/v1/user/logout/'
-              : 'https://staging-api.teachstarter.com/v1/user/logout/',
+            url: API_URL + '/v1/user/logout/',
             method: 'get',
           },
         },
@@ -181,7 +177,7 @@ export default {
         tokenType: 'bearer',
         tokenName: 'Authorization',
         //globalToken: true,
-        //autoFetchUser: false,
+        autoFetchUser: false,
       },
     },
   },
@@ -208,67 +204,6 @@ export default {
         useShortDoctype: true,
       },
     },
-  },
-  generate: {
-    // Grab all the resources from API when running 'generate'
-    // Can you see the problem?
-    /*routes: function() {
-      let resources = axios
-        .get('https://staging-api.teachstarter.com/v1/resource/', {
-          params: { type: ['teaching-resource', 'resource-pack'], perPage: 30 },
-        })
-        .then(response => {
-          return response.data.list.map(resource => {
-            return {
-              route: '/resources/' + resource.name,
-              payload: resource,
-            };
-          });
-        });
-
-      let posts = axios
-        .get('https://staging-api.teachstarter.com/v1/resource/', {
-          params: { type: ['post'], perPage: 10 },
-        })
-        .then(response => {
-          return response.data.list.map(post => {
-            return {
-              route: '/blog/' + post.name,
-              payload: post,
-            };
-          });
-        });
-
-      let freeResources = axios
-        .get('https://staging-api.teachstarter.com/v1/dashboard/teaching-resource/free', {
-          params: { perPage: 4 },
-        })
-        .then(response => {
-          return response.data.list.map(resource => {
-            return {
-              route: '/resources/' + resource.name,
-              payload: resource,
-            };
-          });
-        });
-
-      let unitPlans = axios
-        .get('https://staging-api.teachstarter.com/v1/resource/', {
-          params: { type: ['unit-plan'], perPage: 4 },
-        })
-        .then(response => {
-          return response.data.list.map(resource => {
-            return {
-              route: '/resources/' + resource.name,
-              payload: resource,
-            };
-          });
-        });
-
-      return Promise.all([resources, posts, freeResources, unitPlans]).then(values => {
-        return [...values[0], ...values[1], ...values[2], ...values[3]];
-      });
-    },*/
   },
   dayjs: {
     //locales: ['en', 'es'],
@@ -334,6 +269,67 @@ export default {
         ['maxmemory-policy', 'allkeys-lru'],
       ],
       */
+    },
+    generate: {
+      // Grab all the resources from API when running 'generate'
+      // Can you see the problem?
+      /*routes: function() {
+      let resources = axios
+        .get('https://staging-api.teachstarter.com/v1/resource/', {
+          params: { type: ['teaching-resource', 'resource-pack'], perPage: 30 },
+        })
+        .then(response => {
+          return response.data.list.map(resource => {
+            return {
+              route: '/resources/' + resource.name,
+              payload: resource,
+            };
+          });
+        });
+
+      let posts = axios
+        .get('https://staging-api.teachstarter.com/v1/resource/', {
+          params: { type: ['post'], perPage: 10 },
+        })
+        .then(response => {
+          return response.data.list.map(post => {
+            return {
+              route: '/blog/' + post.name,
+              payload: post,
+            };
+          });
+        });
+
+      let freeResources = axios
+        .get('https://staging-api.teachstarter.com/v1/dashboard/teaching-resource/free', {
+          params: { perPage: 4 },
+        })
+        .then(response => {
+          return response.data.list.map(resource => {
+            return {
+              route: '/resources/' + resource.name,
+              payload: resource,
+            };
+          });
+        });
+
+      let unitPlans = axios
+        .get('https://staging-api.teachstarter.com/v1/resource/', {
+          params: { type: ['unit-plan'], perPage: 4 },
+        })
+        .then(response => {
+          return response.data.list.map(resource => {
+            return {
+              route: '/resources/' + resource.name,
+              payload: resource,
+            };
+          });
+        });
+
+      return Promise.all([resources, posts, freeResources, unitPlans]).then(values => {
+        return [...values[0], ...values[1], ...values[2], ...values[3]];
+      });
+    },*/
     },
   },
 };

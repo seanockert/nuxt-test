@@ -141,6 +141,7 @@ export default {
 	data() {
 		return {
 			unread: 0,
+			error: null,
 		};
 	},
 	computed: {
@@ -151,7 +152,7 @@ export default {
 			try {
 				await this.$auth.logout();
 			} catch (error) {
-				console.log(error);
+				this.error = error.response ? error.response.data.error : error;
 			}
 		},
 	},

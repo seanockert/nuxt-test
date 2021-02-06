@@ -5,6 +5,8 @@
         <h1>Login</h1>
       </header>
 
+      <div v-if="error" class="callout">{{ error }}</div>
+
       <form @submit.prevent="login" action="#" method="post">
         <div class="form-item">
           <label for="username">Username / Email</label>
@@ -30,7 +32,10 @@
         </div>
 
         <div>
-          <button type="submit" class="button button-primary">Log In</button>
+          <button v-if="loggingIn" type="submit" class="button button-default" disabled="true">
+            Logging In...
+          </button>
+          <button v-else type="submit" class="button button-primary">Log In</button>
         </div>
       </form>
     </div>
@@ -58,6 +63,7 @@ export default {
       error: null,
       redirect: '/',
       title: 'Login',
+      loggingIn: false,
     };
   },
   head() {
@@ -72,20 +78,27 @@ export default {
   nuxtI18n: false,
   methods: {
     async login() {
-      try {
-        const response = await this.$auth.loginWith('local', {
-          data: {
-            username: this.username,
-            password: this.password,
-          },
-        });
-        console.log(response);
-        //this.$auth.setUser(response.data);
+      if (this.username && this.password) {
+        this.loggingIn = true;
 
-        this.$router.push(this.redirect);
-      } catch (error) {
-        console.log('error', error);
-        this.error = error;
+        try {
+          const response = await this.$auth.loginWith('local', {
+            data: {
+              username: this.username,
+              password: this.password,
+            },
+          });
+
+          this.$auth.setUser(response.data.user);
+          this.error = null;
+
+          this.$router.push(this.redirect);
+        } catch (error) {
+          this.error = error.response ? error.response.data.error : error;
+          this.loggingIn = false;
+        }
+      } else {
+        this.error = 'Please enter your username and password';
       }
     },
   },

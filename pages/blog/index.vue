@@ -59,6 +59,7 @@ export default {
   data() {
     return {
       title: 'The Chalkboard',
+      error: null,
     };
   },
   async asyncData({ app, params, store }) {
@@ -70,7 +71,7 @@ export default {
       const { data: { list = [] } = {} } = response;
       return { posts: list };
     } catch (error) {
-      console.log(error);
+      this.error = error.response ? error.response.data.error : error;
     }
   },
   head() {
