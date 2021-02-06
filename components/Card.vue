@@ -28,7 +28,7 @@
 			<h4>{{ content.typeFormatted }}</h4>
 			<h3>
 				<nuxt-link :to="url" title="View this resource" class="line-clamp">{{
-					content.name
+					content.title || content.name
 				}}</nuxt-link>
 			</h3>
 			<small

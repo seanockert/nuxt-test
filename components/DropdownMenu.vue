@@ -63,10 +63,10 @@ export default {
     };
   },
   mounted() {
-    //window.addEventListener('click', this.close);
+    window.addEventListener('click', this.close);
   },
   beforeDestroy() {
-    //window.removeEventListener('click', this.close);
+    window.removeEventListener('click', this.close);
   },
   methods: {
     close(e) {

@@ -75,6 +75,7 @@ export default {
           { code: 'us', name: 'United States' },
           { code: 'gb', name: 'England' },
         ],
+        strategy: 'prefix_except_default',
         defaultLocale: 'au',
         detectBrowserLanguage: {
           useCookie: true,

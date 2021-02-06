@@ -66,12 +66,13 @@
 						</template>
 
 						<ul class="link-list">
-							<li class="notifications-actions">
+							<li class="notifications-actions flex">
 								<div>Notifications</div>
-								<!--<button @click.prevent="deleteNotifications" class="button-link">
-							Clear all
-						</button>-->
+								<button @click.prevent="loadNotifications = true" class="button-link pull-right">
+									Refresh
+								</button>
 							</li>
+							<li><notifications :load="loadNotifications" /></li>
 							<!--<Notification
 						v-for="notification in localNotifications"
 						:notification="notification"
@@ -129,6 +130,7 @@
 //import MainNav from './MainNav.vue';
 import DropdownMenu from './DropdownMenu.vue';
 import GlobalSearch from './GlobalSearch.vue';
+import Notifications from './Notifications.vue';
 import { mapGetters } from 'vuex';
 
 export default {
@@ -136,12 +138,13 @@ export default {
 	components: {
 		DropdownMenu,
 		GlobalSearch,
-		//MainNav,
+		Notifications,
 	},
 	data() {
 		return {
 			unread: 0,
 			error: null,
+			loadNotifications: false,
 		};
 	},
 	computed: {
