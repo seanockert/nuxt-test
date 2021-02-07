@@ -75,6 +75,10 @@ export default {
       ],
     };
   },
+  asyncData({ from }) {
+    // Get last route
+    return { from: from };
+  },
   nuxtI18n: false,
   methods: {
     async login() {
@@ -91,6 +95,11 @@ export default {
 
           this.$auth.setUser(response.data.user);
           this.error = null;
+
+          if (this.from) {
+            // Return to previous page after login
+            this.redirect = this.from.fullPath;
+          }
 
           this.$router.push(this.redirect);
         } catch (error) {

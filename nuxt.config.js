@@ -113,6 +113,7 @@ export default {
   styleResources: {
     scss: ['~assets/scss/_variables.scss'],
   },
+  serverMiddleware: [{ path: '/fn/comment', handler: '~/api/postCommentHandler.js' }],
   /*
    ** Axios module configuration
    ** See https://axios.nuxtjs.org/options

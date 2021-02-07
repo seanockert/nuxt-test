@@ -23,6 +23,7 @@
     "nuxt": "^2.14.0",
     "nuxt-i18n": "^6.19.0",
     "nuxt-ssr-cache": "^1.5.2",
+    "querystring": "^0.2.0",
     "vue-photoswipe": "^1.0.3",
     "vue-shortkey": "^3.1.7"
   },
