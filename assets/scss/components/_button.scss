@@ -184,6 +184,24 @@ button {
     }
   }
 
+  &.button-close {
+    border: none;
+    border-radius: 50%;
+    box-shadow: none;
+    font-family: $typeface-header;
+    font-size: $font-size-600;
+    height: 1.5rem;
+    line-height: 0;
+    margin: 0;
+    padding: 0;
+    width: 1.5rem;
+    z-index: 9;
+
+    svg {
+      padding: 0.38rem;
+    }
+  }
+
   &.button-icon {
     padding-left: $base-padding/1.5;
     padding-right: $base-padding/1.5;

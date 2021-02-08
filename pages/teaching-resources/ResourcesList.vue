@@ -13,7 +13,7 @@
     </header>
 
     <div class="row">
-      <div v-if="error" class="callout">{{ error }}</div>
+      <div v-if="error" class="callout callout-error">{{ error }}</div>
 
       <ul v-else-if="!resources" class="row block-grid small-up-1 medium-up-4 large-up-4">
         <li>
@@ -52,7 +52,7 @@
             <card :content="resource" />
           </li>
         </ul>
-        <div class="text-center">
+        <div class="text-center" style="width:100%">
           <button @click="loadResources(page)" class="button button-block">
             Load more
           </button>
@@ -66,7 +66,7 @@
 /* List of resources
  *
  * @parent: /resources/index
- * @requests:
+ * @requests: /publis/v2/resource
  * @events:
  * @props: String error, Boolean loadMore, Object params, Array resources
  * @components: Card

@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div v-if="resourceError" class="callout">{{ resourceError }}</div>
+    <div v-if="resourceError" class="callout callout-error">{{ resourceError }}</div>
     <div v-if="!resource" class="section skeleton">
       <h3></h3>
       <h2></h2>
@@ -22,18 +22,27 @@
           </header>
 
           <section class="section section-actions flex">
-            <download-button :id="8958" :files="resource.files" />
+            <download-button :id="testId" :files="resource.files" />
 
             <div class="pull-right">
               <ul class="inline-list">
                 <li>
                   <button
                     @click="like"
-                    :class="{ button: true, 'button-link': true, active: resource.like.checked }"
+                    :class="{
+                      button: true,
+                      'button-link': true,
+                      'button-like': true,
+                      active: resource.like.checked,
+                    }"
                     title="Like this resource"
                   >
                     <svg class="icon" role="img" aria-hidden="true">
-                      <use xlink:href="~/assets/images/fa-icons.svg#heart-empty"></use>
+                      <use
+                        v-if="resource.like.checked"
+                        xlink:href="~/assets/images/fa-icons.svg#heart"
+                      ></use>
+                      <use v-else xlink:href="~/assets/images/fa-icons.svg#heart-empty"></use>
                     </svg>
                     {{ resource.like.count }}
                   </button>
@@ -44,12 +53,17 @@
                     :class="{
                       button: true,
                       'button-link': true,
+                      'button-bookmark': true,
                       active: resource.bookmark.checked,
                     }"
                     title="Bookmark this resource"
                   >
                     <svg class="icon" role="img" aria-hidden="true">
-                      <use xlink:href="~/assets/images/fa-icons.svg#bookmark-empty"></use>
+                      <use
+                        v-if="resource.bookmark.checked"
+                        xlink:href="~/assets/images/fa-icons.svg#bookmark"
+                      ></use>
+                      <use v-else xlink:href="~/assets/images/fa-icons.svg#bookmark-empty"></use>
                     </svg>
                     {{ resource.bookmark.count }}
                   </button>
@@ -153,9 +167,10 @@
         <div class="row">
           <div class="columns small-12 medium-6 large-6">
             <h2>Comments</h2>
-            <comment-form :id="8958" />
 
-            <div v-if="commentsError" class="callout">{{ commentsError }}</div>
+            <comment-form :id="testId" />
+
+            <div v-if="commentsError" class="callout callout-error">{{ commentsError }}</div>
             <ul v-else class="no-list">
               <comment v-for="comment in comments" :key="comment.id" :comment="comment" />
             </ul>
@@ -208,10 +223,10 @@ export default {
       title: 'Resource',
       description: 'A teaching resource',
       featuredImage: '',
+      testId: 375754,
     };
 
     // From resource: https://www.teachstarter.com/au/teaching-resource/alphabet-handwriting-sheets-individual/
-    const testId = 8958;
 
     try {
       const resource = await $axios.$get($axios.defaults.baseURL + '/public/v2/resource', {
@@ -228,7 +243,7 @@ export default {
 
     try {
       const comments = await $axios.$get($axios.defaults.baseURL + '/v1/comment', {
-        params: { id: testId },
+        params: { id: data.testId },
       });
 
       data.comments = comments.list;
@@ -238,7 +253,7 @@ export default {
 
     try {
       const related = await $axios.$get($axios.defaults.baseURL + '/v1/resource/related', {
-        params: { id: testId },
+        params: { id: data.testId },
       });
 
       data.related = related.list;
@@ -399,6 +414,7 @@ h2 {
       align-items: center;
       display: flex;
       color: $color-text-lightest;
+      font-variant-numeric: tabular-nums;
       margin: 0;
       padding: $base-padding;
       text-decoration: none;
@@ -408,6 +424,15 @@ h2 {
         height: 1.25rem;
         margin-right: $base-padding/3;
         width: 1.25rem;
+      }
+
+      &.active {
+        &.button-like {
+          color: $brilliant-amaranth-500;
+        }
+        &.button-bookmark {
+          color: $cobalt-blue-500;
+        }
       }
     }
   }

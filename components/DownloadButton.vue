@@ -1,5 +1,6 @@
 <template>
 	<div class="button-group">
+		<div v-if="error" class="callout callout-error">{{ error }}</div>
 		<form
 			@submit.prevent="download()"
 			action="/fn/download/"
@@ -83,8 +84,10 @@ export default {
 					location.href = resource.url;
 				}
 
+				this.downloading = false;
 				console.log('resource', resource);
 			} catch (error) {
+				this.downloading = false;
 				this.error = error.response ? error.response.data.error : error;
 			}
 		},

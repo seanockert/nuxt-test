@@ -2,32 +2,49 @@ const querystring = require('querystring');
 const axios = require('axios');
 const API_URL = 'https://staging-api.teachstarter.com/v1/comment';
 
+// Submit POST data to API
+async function submitRequest(params, headers) {
+	return await axios.post(API_URL, params, {
+		headers: headers,
+	});
+}
+
 module.exports = function(req, res, next) {
-	/*let body = '';
-
-	req.on('data', data => {
-		body += data;
-	});
-
-	req.on('end', () => {
-		req.body = querystring.parse(body) || {};
-		console.log('req', req);
-		//next();
-	});
-
-	res.statusCode = 200;
-	res.end('done');*/
-
 	if (req.method == 'POST') {
-		//For receiving POST requests
-		var body = '';
+		// For receiving POST requests
+		let body = '';
 		req.on('data', function(data) {
 			body += data;
 		});
-		req.on('end', function() {
-			var params = querystring.parse(body) || {};
 
-			try {
+		req.on('end', function() {
+			const params = querystring.parse(body) || {};
+
+			if (params.id) {
+				//const response = submitRequest(params, req.headers);
+
+				axios
+					.post(API_URL, params, {
+						headers: req.headers,
+					})
+					.then(response => {
+						res.writeHead(200, { 'Content-Type': 'application/json' });
+						res.write(JSON.stringify(response.data));
+						res.end();
+					})
+					.catch(error => {
+						// Handle Error Here
+						console.error(error);
+						res.writeHead(400, { 'Content-Type': 'application/json' });
+						res.write(error);
+						res.end();
+					});
+			} else {
+				res.writeHead(400, { 'Content-Type': 'application/json' });
+				res.end('Missing post ID');
+			}
+
+			/*try {
 				const response = axios.post(API_URL, params, {
 					headers: req.headers,
 				});
@@ -38,7 +55,7 @@ module.exports = function(req, res, next) {
 				res.writeHead(500, { 'Content-Type': 'application/json' });
 				res.end(error);
 				return false;
-			}
+			}*/
 		});
 	} else {
 		//For receiving GET requests
@@ -49,49 +66,9 @@ module.exports = function(req, res, next) {
 		res.end(JSON.stringify({ url: url }));
 		return false;
 	}
+
+	req.on('error', function(err) {
+		// This prints the error message and stack trace to `stderr`.
+		console.error(err.stack);
+	});
 };
-/*const bodyParser = require('body-parser');
-const app = require('express')();
-
-module.exports = { path: '/fn/comment', handler: app };
-
-app.use(bodyParser.json());
-app.post('https://staging-api.teachstarter.com/v1/comment', (req, res) => {
-	res.json(req.body);
-});*/
-/*
-const querystring = require('querystring');
-
-export default {
-	path: '/fn/comment',
-	handler(req, res, next) {
-		let body = '';
-
-		req.on('data', data => {
-			body += data;
-		});
-
-		req.on('end', () => {
-			req.body = querystring.parse(body) || {};
-			next();
-		});
-
-		res.end(body);
-	},
-};
-
-*/
-/*
-const app = require('express');
-const bodyParser = require('body-parser');
-
-module.exports = { path: '/fn/comment', handler: app };
-
-app.use(bodyParser.json());
-
-app.use(function(req, res) {
-	res.setHeader('Content-Type', 'text/plain');
-	res.write('you posted:\n');
-	res.end(JSON.stringify(req.body, null, 2));
-});
-*/

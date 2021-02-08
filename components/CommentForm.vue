@@ -1,7 +1,13 @@
 <template>
 	<div>
 		<div v-if="error" class="callout">{{ error }}</div>
-		<form v-if="isAuthenticated" action="/fn/comment" method="post" class="comment-form flex">
+		<form
+			v-if="isAuthenticated"
+			@submit.prevent="addComment"
+			action="/fn/comment"
+			method="post"
+			class="comment-form flex"
+		>
 			<!--@submit.prevent="addComment"-->
 			<div v-if="loggedInUser.photo" class="profile-wrapper">
 				<img
@@ -21,7 +27,7 @@
 					v-model="comment"
 					placeholder="Add your comment"
 				></textarea>
-				<input type="hidden" name="postid" id="postid" :value="id" />
+				<input type="hidden" name="id" id="id" :value="id" />
 				<button v-if="addingComment" type="submit" class="button button-default" disabled="true">
 					Adding...
 				</button>

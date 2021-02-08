@@ -14,8 +14,17 @@
 			</span>
 
 			<nuxt-link :to="url" title="View this resource">
+				<!--For blog posts-->
 				<img
-					v-if="content.media && content.media[0]"
+					v-if="content.type === 'post'"
+					:src="content.image.sizes.large.url"
+					alt=""
+					height="300"
+					width="600"
+					loading="lazy"
+				/>
+				<img
+					v-else-if="content.media && content.media[0]"
 					:src="content.media[0].cdn"
 					alt=""
 					height="300"
@@ -27,7 +36,7 @@
 		<div class="card-content">
 			<h4>{{ content.typeFormatted }}</h4>
 			<h3>
-				<nuxt-link :to="url" title="View this resource" class="line-clamp">{{
+				<nuxt-link :to="localePath(url)" title="View this resource" class="line-clamp">{{
 					content.title || content.name
 				}}</nuxt-link>
 			</h3>
@@ -35,11 +44,11 @@
 				v-if="content.type === 'post'"
 				class="card-meta"
 				rel="author"
-				:data-tooltip="content.created | simpleDate('dddd, MMM DD [at] h:mma')"
+				:data-tooltip="content.date | simpleDate('dddd, MMM DD [at] h:mma')"
 			>
 				Posted
-				<time :datetime="content.created | simpleDate('dddd, MMM DD [at] h:mma')">{{
-					content.created | relativeTime
+				<time :datetime="content.date | simpleDate('dddd, MMM DD [at] h:mma')">{{
+					content.date | relativeTime
 				}}</time>
 				by
 				{{ content.author.displayName }}

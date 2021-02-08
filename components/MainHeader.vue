@@ -49,7 +49,16 @@
 					Feed
 				</nuxt-link>
 				<!--<span class="main-nav-links-divider hidden-medium"></span> -->
-				<nuxt-link v-if="!isAuthenticated" to="/login/" title="Log in to your account">
+				<nuxt-link
+					v-if="!isAuthenticated"
+					@click.native.prevent="
+						showLoginModal = true;
+						return false;
+					"
+					event=""
+					to="/login/"
+					title="Log in to your account"
+				>
 					Login
 				</nuxt-link>
 
@@ -113,6 +122,8 @@
 				</template>
 			</nav>
 		</div>
+		<login-modal :show="showLoginModal" @toggle-modal="toggleModal" />
+		<div class="overlay" :class="{ show: showLoginModal }" @click="showLoginModal = false"></div>
 	</header>
 </template>
 
@@ -127,10 +138,11 @@
  * @methods:
  */
 
-//import MainNav from './MainNav.vue';
 import DropdownMenu from './DropdownMenu.vue';
 import GlobalSearch from './GlobalSearch.vue';
+import LoginModal from './LoginModal.vue';
 import Notifications from './Notifications.vue';
+
 import { mapGetters } from 'vuex';
 
 export default {
@@ -138,6 +150,7 @@ export default {
 	components: {
 		DropdownMenu,
 		GlobalSearch,
+		LoginModal,
 		Notifications,
 	},
 	data() {
@@ -145,6 +158,7 @@ export default {
 			unread: 0,
 			error: null,
 			loadNotifications: false,
+			showLoginModal: false,
 		};
 	},
 	computed: {
@@ -157,6 +171,9 @@ export default {
 			} catch (error) {
 				this.error = error.response ? error.response.data.error : error;
 			}
+		},
+		toggleModal(show) {
+			this.showLoginModal = show;
 		},
 	},
 };

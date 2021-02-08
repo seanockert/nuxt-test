@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div v-once>
     <section class="section row align-middle">
       <div class="columns small-12 medium-6 large-6">
         <h3>Our Vision</h3>

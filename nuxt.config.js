@@ -181,6 +181,13 @@ export default {
         //globalToken: true,
         autoFetchUser: false,
       },
+      facebook: {
+        endpoints: {
+          userInfo: 'https://graph.facebook.com/v6.0/me?fields=id,name,picture{url}',
+        },
+        clientId: '391151644307223',
+        scope: ['public_profile', 'email'],
+      },
     },
   },
   /*

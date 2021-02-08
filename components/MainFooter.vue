@@ -4,12 +4,12 @@
 			<div class="columns small-6 medium-6 large-3">
 				<h3>About Us</h3>
 				<ul class="link-list">
-					<li><a href="/about">About Us</a></li>
+					<li><a href="/about/">About Us</a></li>
 					<li><a href="https://medium.com/teachstarter/media/home/">News &amp; Media</a></li>
 					<li><a href="one-million-trees-project/">One Million Trees Project</a></li>
 					<li><a href="https://medium.com/teachstarter/">Creating Teach Starter</a></li>
 					<li><a href="/testimonials-reviews/">Testimonials &amp; Reviews</a></li>
-					<li><a href="/careers/">Careers</a></li>
+					<li><a href="https://teachstarter.bamboohr.com/jobs/">Careers</a></li>
 				</ul>
 			</div>
 			<div class="columns small-6 medium-6 large-3">
@@ -40,46 +40,69 @@
 					<li><a href="/love-learning-podcast/">Love Learning</a></li>
 				</ul>
 
-				<a href="" title=""
+				<a href="https://www.facebook.com/teachstarter" title="Like us on Facebook"
 					><svg class="icon icon-small" role="img" aria-hidden="true" aria-label="Facebook">
 						<use xlink:href="~/assets/images/fa-icons.svg#facebook"></use></svg
 				></a>
 
-				<a href="" title=""
-					><svg class="icon icon-small" role="img" aria-hidden="true" aria-label="Twitter">
-						<use xlink:href="~/assets/images/fa-icons.svg#twitter"></use></svg
-				></a>
-
-				<a href="" title=""
+				<a href="https://www.instagram.com/teachstarter" title="Follow us on Instagram"
 					><svg class="icon icon-small" role="img" aria-hidden="true" aria-label="Instagram">
 						<use xlink:href="~/assets/images/fa-icons.svg#instagram"></use></svg
 				></a>
 
-				<a href="" title=""
+				<a href="https://www.pinterest.com/teachstarter" title="Get inspired on our Pinterest"
+					><svg class="icon icon-small" role="img" aria-hidden="true" aria-label="Pinterest">
+						<use xlink:href="~/assets/images/fa-icons.svg#pinterest"></use></svg
+				></a>
+
+				<a href="https://www.youtube.com/teachstarter" title="View our videos on YouTuve"
 					><svg class="icon icon-small" role="img" aria-hidden="true" aria-label="YouTube">
 						<use xlink:href="~/assets/images/fa-icons.svg#youtube"></use></svg
 				></a>
 
-				<a href="" title=""
-					><svg class="icon icon-small" role="img" aria-hidden="true" aria-label="Pinterest">
-						<use xlink:href="~/assets/images/fa-icons.svg#pinterest"></use></svg
+				<a href="https://www.twitter.com/teachstarter" title="Follow us on Twitter"
+					><svg class="icon icon-small" role="img" aria-hidden="true" aria-label="Twitter">
+						<use xlink:href="~/assets/images/fa-icons.svg#twitter"></use></svg
 				></a>
 			</div>
 		</div>
-		<div class="text-center">
-			<small>
-				<dropdown-menu position="drop-left" type="">
-					<template v-slot:label>
-						<small>{{ $i18n.locale.toUpperCase() }}</small>
-					</template>
-					<ul class="link-list">
-						<li
-							v-for="locale in $i18n.locales"
-							:key="locale.code"
-							v-if="locale.code !== $i18n.locale"
+		<div class="section sub-footer flex">
+			<dropdown-menu position="top" type="country-selector">
+				<template v-slot:label>
+					<div class="flex">
+						<img
+							:src="
+								'https://www.teachstarter.com/wp-content/themes/teachstarter_2015/images/icons/flags/' +
+									$i18n.locale +
+									'.gif'
+							"
+							alt=""
+							height="11"
+							width="16"
+						/>
+						{{ $i18n.locales.find(l => l.code == $i18n.locale).name }}
+					</div>
+				</template>
+				<ul class="link-list">
+					<li
+						v-for="locale in $i18n.locales"
+						:key="locale.code"
+						v-if="locale.code !== $i18n.locale"
+					>
+						<nuxt-link :to="switchLocalePath(locale.code)"
+							><img
+								:src="
+									'https://www.teachstarter.com/wp-content/themes/teachstarter_2015/images/icons/flags/' +
+										locale.code +
+										'.gif'
+								"
+								alt=""
+								height="11"
+								width="16"
+							/>
+							{{ locale.name }}</nuxt-link
 						>
-							<nuxt-link :to="switchLocalePath(locale.code)">{{ locale.name }}</nuxt-link>
-							<!--<button
+						<!--<button
 							@click="changeRegion(country.slug)"
 							:class="{
 								button: true,
@@ -90,13 +113,19 @@
 						>
 							{{ country.name }}
 						</button>-->
-						</li>
-					</ul>
-				</dropdown-menu>
-				<a href="#" title="/">&copy; {{ thisYear }} Teach Starter Pty Ltd</a> &nbsp;·&nbsp;
-				<a href="#" title="/about/terms-and-conditions/">Terms &amp; Conditions</a>
-				<a href="#" title="/about/privacy-policy">Privacy Policy</a> &nbsp;·&nbsp;
-			</small>
+					</li>
+				</ul> </dropdown-menu
+			>&nbsp;&nbsp;·&nbsp;&nbsp;
+			<a
+				href="/about/terms-and-conditions/"
+				title="Read the Terms & Conditions of using Teach Starter"
+				>Terms &amp; Conditions</a
+			>&nbsp;&nbsp;·&nbsp;&nbsp;
+			<a href="/about/privacy-policy" title="Read Teach Starter Privacy Policy">Privacy Policy</a>
+
+			<div class="pull-right">
+				<a href="/" title="Return home">&copy; {{ thisYear }} Teach Starter Pty Ltd</a>
+			</div>
 		</div>
 	</footer>
 </template>
@@ -175,6 +204,27 @@ footer {
 
 		&.active {
 			color: $color-text !important;
+		}
+	}
+}
+
+.sub-footer {
+	align-items: center;
+	border-top: 1px solid $ts-green-300;
+	font-size: $font-size-300;
+	padding-bottom: 0;
+
+	.dropdown {
+		margin-bottom: -3px;
+
+		.flex {
+			margin: 0;
+		}
+
+		img {
+			height: 1rem;
+			margin-right: $base-padding/2;
+			width: auto;
 		}
 	}
 }

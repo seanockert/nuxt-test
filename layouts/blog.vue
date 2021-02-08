@@ -2,7 +2,7 @@
   <div>
     <header id="header" class="fixed-header">
       <nav class="main-nav">
-        <h3>Example of a simple layout</h3>
+        <h3>Example of an alternative page layout (without header/footer)</h3>
       </nav>
     </header>
     <main role="main">
